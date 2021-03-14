@@ -1,0 +1,180 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 14:49:06
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['tablePage', 'jquery'], function () {
+            var page = layui.tablePage, table = layer.table,$ = layui.jquery;
+            var url = '/api/role';
+            app.httpAsync('GET', url, {},{}, function (res) {
+                if (res && res.code == "200") {
+                    //page.render({
+                    var c={
+                        elem: $(box),
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [
+                                { event: 'delAll', icon: '&#xe640;', text: '批删',skin:4 }
+                                , { event: 'add', icon: '&#xe654;', text: '新建',skin:2}
+                            ],
+                        },
+                        table: {
+                            data: res.data,
+                            tableOptions: {
+                                defaultToolbar: [],
+                                cols: [
+                                    [
+                                        {
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'id',
+                                            title: 'ID',
+                                            width: 80
+                                        }, {
+                                            field: 'name',
+                                            title: '角色名称',
+                                            width:200
+                                        },{
+                                            field: 'description',
+                                            title: '描述'
+                                        }
+                                        , {
+                                            title: '操作',
+                                            align: 'center',
+                                            width: 250,
+                                            templet: function () {
+                                                return page.rowbarRender([
+                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑"' },
+                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' }
+                                                ]);
+                                            }
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                //alert(JSON.stringify(page.getSearchOptions()));
+                                app.httpAsync('GET', url, page.getSearchOptions(), {},  function (rdata) {
+                                    if (res && res.code == "200") {
+                                        c.table.data = rdata.data;
+                                        page.render(c);
+                                    }
+                                });
+                            },
+                            add: function (src) {
+                                var title = '增加内容 - 角色管理',
+                                    url = './user/roleForm.html';
+
+                                if (parent.xadmin) {
+                                    parent.xadmin.open(title, url, 1060, 600);
+                                } else {
+                                    layer.open({
+                                        type: 2,
+                                        title: title,
+                                        //closeBtn: 0, //不显示关闭按钮
+                                        shade: [0],
+                                        area: ['1060px', '600px'],
+                                        //offset: 'rb', //右下角弹出
+                                        //time: 2000, //2秒后自动关闭
+                                        anim: 2,
+                                        content: [url, 'no'], //iframe的url
+                                    });
+                                }
+                            },
+                            delAll: function (o) {
+                                layer.confirm('您确定要删除全部选中数据?', {
+                                    icon: 5,
+                                    title: '警告'
+                                }, function (index) {
+                                    var checkStatus = page.checkStatus(c.table.id);//checkStatus确定当前状态
+                                    var ids = [];
+                                    checkStatus.data.forEach(function (item) {
+                                        ids.push(item.id);
+                                    });
+                                    var url = "/api/role/deleteList"
+                                    app.httpAsync('POST', url, JSON.stringify(ids), {}, function (res) {
+                                        if (res && res.code == "200") {
+                                            location.reload();//刷新页面
+                                        } else {
+                                            top.layer.alert(data.msg);
+                                        }
+                                    });
+                                    layer.close(index);
+                                });
+                            },
+                            rowDel: function (o) {
+                                layer.confirm('你确定要删除本行数据吗', {
+                                    icon: 3,
+                                    title: '警告'
+                                }, function (index) {
+                                    var url = '/api/role/' + o.data.id;
+                                    app.httpAsync('Delete', url, {}, {}, function (res) {
+                                        if (res && res.code == "200") {
+                                            layer.msg("删除成功！");
+                                        }
+                                    });
+                                    layer.close(index);
+                                    location.reload(true);
+                                });
+                            },
+                            rowEdit: function (o) {
+                                var title = '编辑内容-角色管理',
+                                    url = './user/roleFormEdit.html?k=' + o.data.id;//？后面是查询字符串
+                                if (parent.xadmin) {
+                                    var index = parent.xadmin.open(title, url, 1060, 600);
+                                } else {
+                                    layer.open({
+                                        type: 2,
+                                        title: title,
+                                        shade: [0],
+                                        area: ['1060px', '600px'],
+                                        anim: 2,
+                                        content: [url, 'no'],
+                                    });
+                                }
+                            },
+                            rowDouble: function (o) {
+                                this.rowEdit(o);
+                            }
+                        },
+                    };
+                    page.render(c);
+                    //});
+                }
+                else
+                    app.alert.error("出错了！")
+            });
+        });
+    </script>
+</body>
+
+</html>

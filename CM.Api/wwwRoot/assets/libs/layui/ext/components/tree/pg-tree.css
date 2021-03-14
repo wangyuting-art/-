@@ -1,0 +1,87 @@
+﻿.pg-tree-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 32px;
+    line-height: 32px;
+    width: 100%;
+    border-bottom: 1px solid #E6E6E6;
+    color: #666;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+    padding-left: 9px;
+    font-size: 12px;
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    -khtml-user-select: text;
+    user-select: text
+}
+
+.pg-tree-content {
+    position: absolute;
+    top: 33px;    
+    bottom: 0;
+    width:100%;
+
+}
+
+.pg-tree-body{    
+    height:100%;
+}
+
+.layui-icon-12 {
+    font-family: layui-icon !important;
+    font-size: 12px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+}
+
+/* 树形样式*/
+
+.dtree {
+    width: 100%;
+}
+
+.dtree-theme-item-this {
+    background-color: #fff !important;
+    color: #FF5722;
+}
+
+.dtree-theme-item:hover {
+    background-color: #f2f2f2 !important;
+}
+
+.dtree-theme-item cite {
+    font-size: 12px !important;
+}
+
+.dtree-theme-item:hover cite {
+    color: #009688 !important;
+}
+
+.dtree-theme-dtreefont {
+    font-size: 16px !important;
+}
+.dtree-theme-ficon {
+    color: #393D49 !important;
+}
+
+.dtree-theme-icon {
+    color: #666 !important;
+}
+
+.dtree-theme-checkbox:hover {
+    color: #009688 !important;
+}
+
+.dtree-theme-choose {
+    color: #009688 !important;
+}
+
+.dtree-toolbar-fixed a i {
+    color: #009688;
+}

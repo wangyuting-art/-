@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>栏目管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        layui.use(['pgLayout', 'tablePage'], function () {
+            var $ = layui.$;
+            var page = layui.tablePage;
+            var app = layui.app;
+                        
+            var container = $("#box").pgLayout();
+            app.httpAsync('GET', '/pc/demo/json/role.json', {}, function (res) {
+                if (res && res.code == "200") {
+                    page.render({
+                        elem: container.content,
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [
+                                { event: 'delAll', icon: '&#xe640;', text: '批删' }
+                                , { event: 'del', icon: '&#xe640;', text: '新建' }
+                            ],
+                        },
+                        table: {
+                            data: res,
+                            tableOptions: {
+                                cols: [
+                                    [
+                                        {
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'id',
+                                            title: 'ID',
+                                            width: 80
+                                        }, {
+                                            field: 'name',
+                                            title: '角色名称'
+                                        }
+                                        , {
+                                            title: '操作',
+                                            align: 'center',
+                                            width: 250,
+                                            templet: function () {
+                                                return page.rowbarRender([
+                                                    { event: 'rowEnable', icon: '&#xe601;', text: '启用"' },
+                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑"' },
+                                                    { event: 'rowPsw', icon: '&#xe631;', text: '修改密码' },
+                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' }
+                                                ]);
+                                            }
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                alert(JSON.stringify(page.getSearchOptions()));
+                            },
+                            adv: function (src) {
+                                alert(src);
+                            }
+                        },
+
+                    });
+                }
+                else
+                    window.top.location.href = "login.html"
+            });
+        });
+    </script>
+</body>
+
+</html>

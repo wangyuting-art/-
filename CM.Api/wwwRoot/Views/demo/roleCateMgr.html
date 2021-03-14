@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色授权</title>
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+    <style>
+
+        .layui-table-tool {
+            border: none;
+            background-color: #fff;
+            padding: 10px 0 5px 0;
+            min-height: 30px;
+        }
+
+        .layui-table-view {
+            border: none;
+        }
+
+        .card-body-left {
+            display: inline-block;
+            width: 200px;
+            height: 420px;
+            float: left;
+            margin-right: 15px;
+        }
+
+            .card-body-left .toolbar {
+                margin-top: 22px;
+            }
+
+        #roleBtn {
+            display: inline-block;
+            float: right;
+        }
+
+            #roleBtn .layui-btn-primary {
+                border: none;
+            }
+
+            #roleBtn .layui-btn-sm {
+                height: 30px;
+                line-height: 30px;
+                padding: 0 5px;
+                font-size: 12px
+            }
+
+        .tree-container {
+            border: solid 1px #f1f1f1;
+            height: 360px;
+            overflow: auto;
+        }
+
+        .card-body-left .tree-container {
+            margin-top: 15px;
+        }
+
+
+        .card-body-right {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /*background-color: aqua;*/
+        /*display: inline-block;
+            margin-right:10px;*/
+    </style>
+</head>
+
+<body>
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-card-header">
+        <span class="layui-breadcrumb" lay-separator="&gt;">
+          <a href="">系统设置</a>
+          <a><cite>角色授权</cite></a>
+        </span>
+      </div>
+      <div class="layui-card-body " style="padding-top:0px">
+          <div class="layui-row">
+              <div class="card-body-left">
+                  <div class="toolbar">
+                      <span><i class="layui-icon layui-icon-group" ></i>&nbsp;选择角色</span>
+                      <div class="layui-btn-group" id="roleBtn">
+                          <a class="layui-btn layui-btn-primary layui-btn-sm" title="添加" lay-event="add">
+                              <i class="layui-icon  layui-icon-add-1"></i>
+                          </a>
+                          <a class="layui-btn layui-btn-primary layui-btn-sm" title="刷新" lay-event="delAll">
+                              <i class="layui-icon layui-icon-refresh"></i>
+                          </a>
+                      </div>
+                  </div>
+                  <div class="tree-container">
+                      <ul id="slTree" class="dtree" data-id="0" style="width: 100%;"></ul>
+                  </div>
+              </div>
+              <div class="card-body-right">
+                  <div class="layui-table-tool">
+                      <div class="layui-table-tool">
+                          <div class="layui-table-tool-temp">
+                              <div class="layui-inline">
+                                  <i class="layui-icon layui-icon-set-fill"></i> &nbsp;<span>分配栏目</span>
+                              </div>
+                          </div>
+                          <div class="layui-table-tool-self">
+                              <button class="layui-btn layui-btn-sm" id="btnSave">
+                                  <i class="layui-icon layui-icon-search"></i>保存
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="tree-container">
+                      <ul id="cateTree" class="dtree" data-id="0" style="width: 100%;"></ul>
+                  </div>
+              </div>
+          </div>         
+        
+      </div>
+    </div>
+  </div>
+
+
+
+
+<script src="./js/roleCateMgr.js?v=2019.4.21"></script>
+</body>
+
+</html>

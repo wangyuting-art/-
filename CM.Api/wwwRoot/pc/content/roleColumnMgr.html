@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>栏目授权管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+
+<body>
+    <div id="box" class="layui-form"></div>
+    <script>
+                //递归送法，前端算法转换
+        function createTreeTable(pid, data) {
+            var treeData = [], leafData = [];
+            function sub(pid) {
+                var ptree = data.filter(o => o.parentId == pid);
+                ptree.forEach(it => {
+                    if (data.findIndex(o => o.parentId == it.id) > -1) {
+                        it.children = [];
+                        treeData.push(it);
+                        sub(it.id);
+                    } else {
+                        if (it.parentId == 0) {
+                            it.children = [];
+                            treeData.push(it);
+                        } else
+                            leafData.push(it);
+                    }
+                })
+            }
+            sub(pid);
+            var leaf = [];
+            leafData.forEach(it => {
+                if (treeData.findIndex(o => o.id == it.id) == -1) {
+                    leaf.push(it);
+                }
+            })
+            treeData.forEach(it => {
+                var children = leaf.filter(o => o.parentId == it.id);
+                children.forEach(o => {
+                    it.children.push(o);
+                })
+            })
+            return treeData;
+        }
+
+
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+        layui.use(['form','pgLayout', 'pgTree', 'treeTablePage','laytpl'], function () {
+            var $ = layui.$,form=layui.form,laytpl=layui.laytpl,
+            page = layui.treeTablePage;
+
+            var container = $("#box").pgLayout();
+
+            function bindNavTree() {
+                var url = '/api/role';
+                app.httpAsync('GET', url, {}, {},  function (res) {
+                    if (res && res.code == "200") {
+                        var treeConfig = {
+                            config: {
+                                title: '系统角色',
+                                data: res.data,
+                                response: {
+                                    treeId: "id",
+                                    title: "name"
+                                }
+                            },
+                            events: {
+                                nodeClick: nodeClickHander
+                            }
+                        };
+                        $(container.left).pgTree(treeConfig);
+                    } else {
+                        
+                        //window.top.location.href = "login.html";
+
+                    }
+
+                });
+            }
+
+            function nodeClickHander(tree, obj) {
+                curRoleId = obj.param.nodeId;
+                var url = '/api/column/rights/' + curRoleId;
+                //'/pc/json/roleColumn.json'
+                app.httpAsync('GET', url, {}, {},  function (res) {
+                    if (res && res.code == "200") {
+                        //res.data = [];
+                        res.data = createTreeTable(0, res.data);
+                        page.render({
+                            elem: container.content,
+                            toolbar: {
+                                searchFieldName: 'Name',
+                                conditions: [],
+                                buttons: [ {
+                                    event: 'save',
+                                    icon: '&#x1005;',
+                                    text: '保存',
+                                    skin:6
+                                }],
+                            },
+                            table: {
+                                data: res,
+                                tableOptions: {
+                                    icon_key: 'name',
+                                    is_checkbox: true,
+                                    primary_key: 'id',
+                                    parent_key: 'parentId',
+                                    cols: [
+                                        {
+                                            key: 'name',
+                                            title: '页面名称',
+                                            width: '150px'
+                                        },
+                                        {
+                                            field: 'children',
+                                            title: '授权',
+                                            template: function (f) {
+                                                var v = f[this.field],
+                                                    lines = [];
+                                                v.forEach(function (item) {
+                                                    item.checked = item.selected == 1 ?
+                                                        'checked' : '';
+                                                    laytpl(['<input type="checkbox" name="myright" ',
+                                                        'value="{{d.id}}" {{d.checked}} lay-skin="primary" ',
+                                                        'title="{{d.name}}">'
+                                                    ].join("")).render(item,
+                                                        function (s) {
+                                                            lines.push(s);
+                                                        })
+                                                })
+                                                return lines.join("");
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            events: {
+                                search: function (src) {
+                                    alert(JSON.stringify(page.getSearchOptions()));
+                                    console.log(src);
+                                },
+                                save: function (src) {
+                                    var data = {
+                                        roleId: parseInt(curRoleId),
+                                        rights: []
+                                    };
+                                    var inputs = $('input[name="myright"]');
+                                    for (var i = 0; i < inputs.length; i++) {
+                                        data.rights.push({
+                                            resourceId: parseInt(inputs[i].value),
+                                            selected: inputs[i].checked
+                                        })
+                                    }
+                                    var url = "/api/role/changeMenuRights";
+                                    app.httpAsync('POST', url, JSON.stringify(data), {}, function (res) {
+                                        if (res && res.code == "200") {
+                                            app.alert.msg("授权成功！");
+                                        } else {
+                                            app.alert.error(res.msg);
+                                        }
+                                    });
+                                }
+                            },
+
+                        });
+                        form.render();
+                    } else{
+                        app.alert.error("出错了！")
+                    }
+                        
+                });
+            }
+
+            bindNavTree();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 35,
+    "data": [{
+        "ID": 10001,
+        "GroupName": "16前端"
+    }, {
+        "ID": 10002,
+        "GroupName": "16后端"
+    },{
+        "ID": 10003,
+        "GroupName": "16设计"
+    }, {
+        "ID": 10004,
+        "GroupName": "16后端"
+    },{
+        "ID": 10005,
+        "GroupName": "16设计"
+    }, {
+        "ID": 10006,
+        "GroupName": "16后端"
+    },{
+        "ID": 10007,
+        "GroupName": "16设计"
+    }, {
+        "ID": 10008,
+        "GroupName": "16后端"
+    },{
+        "ID": 10009,
+        "GroupName": "16设计"
+    }, {
+        "ID": 10010,
+        "GroupName": "16后端"
+    }]
+}

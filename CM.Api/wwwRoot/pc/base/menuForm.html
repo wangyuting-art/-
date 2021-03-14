@@ -1,0 +1,174 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-03-02 13:26:32
+ * @LastEditTime: 2020-03-02 14:31:02
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\base\menuForm.html
+ -->
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加系统菜单</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/libs/xadmin/css/xadmin.css" />
+
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['element', 'form', 'formPage'], function () {
+            var page = layui.formPage;
+
+            var pid = app.urlGetParam(location.search, 'pid'),
+                id = app.urlGetParam(location.search, 'id');
+            var treeData = {};
+            if (!pid) pid = 0;
+
+            var url = '/api/menu';
+            app.httpAsync('GET', url, {}, {},  function (res) {
+                if (res && res.code == "200") {
+                    //page.render({
+                    treeData = {
+                        selectInitVal: "",
+                        data: []
+                    }
+                    var theEdit = null;
+                    res.data.forEach(item => {
+                        if (id && id == item.id) theEdit = item;//id不为空
+
+                        treeData.data.push({
+                            id: item.id,
+                            title: item.name,
+                            parentId: item.parentId
+                        })
+                    })
+                    treeData.data.unshift({
+                        id:-1,
+                        title: "<顶级菜单>",
+                        parentId: 0
+                    });
+                    if (theEdit)
+                        treeData.selectInitVal = theEdit.parentId;//使下拉框的值等于编辑的值
+                    else
+                        treeData.selectInitVal = pid > 0 ? pid : treeData.data[0].id;
+                    var c = {
+                        elem: box,
+                        initFormData: theEdit,
+                        tabs: [{
+                            title: '',
+                            type: 'form',
+                            opts: [
+                                [
+                                    {
+                                        label: "菜单名称",
+                                        field: "name",
+                                        inputType: "text",//text,password,date,radio,check,textarea,switch,select,formselect
+                                        placeholder: "请输入",
+                                        verify: "required",
+                                        description: "必填，不能重名"
+                                    }],
+                                    [{
+                                        label: "上级菜单",
+                                        field: "parentId",
+                                        inputType: "tree",
+                                        placeholder: "请输入",
+                                        verify: "required",
+                                        refData: treeData,
+                                        description: "必填，不能为空"
+                                    }], [{
+                                        label: "菜单URL",
+                                        field: "url",
+                                        inputType: "text",
+                                        widthType:"fluid",
+                                        placeholder: "请输入",
+                                        verify: "required",
+                                        description: "必填，菜单指向的网址"
+                                    }], [{
+                                        label: "菜单图标",
+                                        field: "icon",
+                                        inputType: "formselect",
+                                        placeholder: "选择图标",
+                                        description: "制定菜单项图标",
+                                        refData: {url:"/pc/base/icons.html",title:"选择图标",width:880,height:540}
+                                    }], [{
+                                        label: "排序号",
+                                        field: "orderNo",
+                                        inputType: "text",
+                                        description: "请输入",
+                                        verify: "required",
+                                        description: "必填，菜单指向的网址",
+                                        refData:"99"
+                                    }]
+                            ]
+                        }],
+                        events: {
+                            dosubmit: function (data) {
+                                var res = false;
+                                //提交两个字段
+                                var postFields = {
+                                    table: ["name", "url","parentId","icon", "orderNo"]
+                                }
+                                var tt = parseInt(data.table["parentId"]);
+                                data.table["parentId"] = tt < 0 ? 0 : tt;
+                                var table = {};
+                                postFields.table.forEach(it => {
+                                    table[it] = data.table[it];
+                                });
+                                var method = "POST", url = '/api/menu';
+                                if (theEdit) {
+                                    method = "PUT";
+                                    url = '/api/menu/' + theEdit.id;
+                                }
+
+                                //stringify json转字符串，ajax异步调用，调用接口action
+                                app.httpAsync(method, url, JSON.stringify(table), {},function (rdata) {
+                                    if (rdata && rdata.code == "200") {
+                                        if (parent.xadmin) {
+                                            //刷新前一页面
+                                            parent.refreshCurrentTab && parent.refreshCurrentTab();
+                                        } else {
+                                            parent.location.reload();
+                                        }
+                                        //决定是否关闭弹层
+                                        if (data.table.continue && data.table.continue == 'on') {
+                                            var index = parent.layer.getFrameIndex(window.name);
+                                            //关闭页面
+                                            parent.layer.close(index);
+                                            //组织表单跳转，如果需要，去掉这段就可以
+                                            return false;
+                                        } else {
+                                            location.reload();
+                                        }
+                                        res = true;
+                                    } else
+                                        app.alert.error('出错了');
+                                });
+                                return res;
+                            },
+                            formselect: function (owner, data) {
+                                owner.val(data.code);
+                            }
+                        }
+
+                    };
+                    page.render(c);
+                }
+
+            });
+        });
+    </script>
+</body>
+
+</html>

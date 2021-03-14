@@ -1,0 +1,111 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-03-02 13:26:32
+ * @LastEditTime: 2020-03-02 14:40:47
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\base\menuForm.html
+ -->
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加系统菜单</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/libs/xadmin/css/xadmin.css" />
+
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        layui.use(['element', 'form', 'formPage'], function () {
+            var page = layui.formPage;
+            var app = layui.app;
+            page.render({
+                elem: box,
+                tabs: [{
+                    title: '',
+                    type: 'form',
+                    opts: [
+                        [
+                            {
+                                label: "接口名称",
+                                field: "name",
+                                inputType: "text",
+                                placeholder: "请输入",
+                                verify: "required",
+                                description: "必填，不能重名"
+                            }],
+                        [
+                            {
+                                label: "接口端点",
+                                field: "url",
+                                inputType: "text",
+                                placeholder: "请输入",
+                                verify: "required",
+                                description: "必填，接口对应的URL网址"
+                            }
+                        ],
+                        [
+                                {
+                                    label: "可用方法",
+                                    field: "methods",
+                                    widthType: "fluid",//"fluid"
+                                    inputType: "checkbox",
+                                    refData: [
+                                        [1, 'Gets', 0],
+                                        [2, 'Get', 0],
+                                        [3, 'Post', 0],
+                                        [4, 'Put', 0],
+                                        [5, 'Delete', 0]
+                                    ]
+                                }],[
+                                {
+                                label: "排序号",
+                                field: "orderNo",
+                                inputType: "text",
+                                placeholder: "请输入",       //文本占位符
+                                verify: "required",
+                                description: "请填写0至99之间的整数",
+                                refData: "99"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                            }
+                        ],[
+                            {
+                                label: "功能描述",
+                                field: "description",
+                                inputType: "textarea",//text,password,date,radio,check,textarea,switch,select,formselect
+                                widthType: "fluid",//"fluid"
+                                placeholder: "请输入",       //文本占位符
+                            }
+                        ]
+                    ]
+                }],
+                events: {
+                    dosubmit: function (data) {
+                        var res = false;
+                        var data = { "": JSON.stringify(data) };
+                        app.httpAsync('POST', '/api/Module', data, function (res) {
+                            if (res && res.code == "200") {
+                                res = true;
+                            }
+                            else
+                                app.alert.error('出错了！');
+                        });
+                        
+                        return res;
+                    }
+                }
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>

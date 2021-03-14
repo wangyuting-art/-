@@ -1,0 +1,138 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 19:31:44
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>接口档案管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['tablePage','jquery','laytpl'], function () {
+            var page = layui.tablePage,
+            laytpl=layui.laytpl,
+            $=layui.jquery;
+
+            app.httpAsync('GET', '/pc/json/api.json', {},{}, function (res) {
+                if (res && res.code == "200") {
+                    page.render({
+                        elem: $(box),
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [
+                                { event: 'delAll', icon: '&#xe640;', text: '批删',skin:4 }
+                                , { event: 'add', icon: '&#xe654;', text: '新建',skin:2}
+                            ],
+                        },
+                        table: {
+                            data: res.data,
+                            tableOptions: {
+                                defaultToolbar: [],
+                                cols: [
+                                    [
+                                        {
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'name',
+                                            title: '接口名称',
+                                            width:80
+                                        }, {
+                                            field: 'url',
+                                            title: '接口URL',
+                                            width:200
+                                        }, {
+                                            field:"methods",
+                                            title: '方法',
+                                            width:240,
+                                            templet: function (f) {
+                                                var methodArray=['Gets','Get','Post','Put','Delete'],
+                                                v=f[this.field],r='';
+                                                for(var i=0;i<v.length;i++){
+                                                    if(v[i]=='1')
+                                                        //r=r+'<li>'+methodArray[i]+'</li>';
+                                                        r=r+'&nbsp;<span class="layui-badge layui-bg-green-2">'+methodArray[i]+'</span>';
+                                                }
+                                                return r;
+                                            }
+                                        }, {
+                                            field: 'description',
+                                            title: '描述',
+                                        }, {
+                                            field: 'orderNo',
+                                            title: '排序',
+                                            width:80,
+                                            align:'center'
+                                        }, {
+                                            title: '操作',
+                                            align: 'center',
+                                            width: 120,
+                                            templet: function () {
+                                                return page.rowbarRender([
+                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑' },
+                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' }
+                                                ]);
+                                            }
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                alert(JSON.stringify(page.getSearchOptions()));
+                            },
+                            add: function (src) {
+                                    var title = '接口管理 - 增加内容',
+                                        url = './base/apiForm.html';
+
+                                    if (parent.xadmin) {
+                                        parent.xadmin.open(title, url, 1060, 600);
+                                    } else {
+                                        layer.open({
+                                            type: 2,
+                                            title: title,
+                                            //closeBtn: 0, //不显示关闭按钮
+                                            shade: [0],
+                                            area: ['1060px', '600px'],
+                                            //offset: 'rb', //右下角弹出
+                                            //time: 2000, //2秒后自动关闭
+                                            anim: 2,
+                                            content: [url, 'no'], //iframe的url
+                                        });
+                                    }
+                                },
+                                
+                        },
+
+                    });
+                }
+                else
+                    app.alert.error("出错了！")
+            });
+        });
+    </script>
+</body>
+
+</html>

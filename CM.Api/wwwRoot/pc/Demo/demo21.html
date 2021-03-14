@@ -1,0 +1,192 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 14:49:06
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        layui.use(['element', 'form','formPage'], function () {
+            var page = layui.formPage;
+            page.render({
+                elem: box,
+                tabs: [
+                {
+                    title: "表信息",
+                    type: "form",
+                    opts: [
+                        [
+                            {
+                                label: "单行输入框",
+                                field: "title1",
+                                inputType: "text",//text,password,date,radio,check,textarea,switch,select,formselect
+                                widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                verify: "required",        //required|phone|email|url|number|date|identity
+                                validator: [{ regx: "^[0-9]*$", err: "只能为数字" }],
+                                description: "辅助说明文本", //辅助说明文本
+                                refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+
+                            }
+                        ],
+                        [
+                            {
+                                label: "单行输入框",
+                                field: "title2",
+                                inputType: "text",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "辅助说明文本", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: [
+                                    [1, '杭州', 0],
+                                    [2, '宁波', 1]
+                                ]
+                            }
+                        ],
+                        [
+                            {
+                                label: "单行输入框",
+                                field: "title3",
+                                inputType: "text",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                //description: "辅助说明文本", //辅助说明文本
+                                refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+
+                            },
+                            {
+                                label: "单行输入框",
+                                field: "title4",
+                                inputType: "text",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                //description: "辅助说明文本", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                //refData: [
+                                //    [1, '杭州', 0],
+                                //    [2, '宁波', 0]
+                                //]
+                            }
+                        ],
+                        [
+                            {
+                                label: "密码输入框",
+                                field: "title5",
+                                inputType: "password",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "密码", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: [
+                                    [1, '杭州', 0],
+                                    [2, '宁波', 0]
+                                ]
+                            }
+                        ],
+                        [
+                            {
+                                label: "单选框",
+                                field: "title6",
+                                inputType: "radio",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "密码", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: [
+                                    [1, '杭州', 0],
+                                    [2, '宁波', 1]
+                                ]
+                            }
+                        ],
+                        [
+                            {
+                                label: "复选框",
+                                field: "city7",
+                                inputType: "checkbox",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "城市", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: [
+                                    [1, '杭州', 0],
+                                    [2, '宁波', 1]
+                                ]
+                            },
+                            {
+                                label: "性别",
+                                field: "gender",
+                                inputType: "switch",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                //holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "性别", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: "男|女"
+                            }
+
+                        ],
+                        [
+                            {
+                                label: "描述",
+                                field: "descr8",
+                                inputType: "textarea",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                //description: "城市", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                //refData: [
+                                //    [1, '杭州', 0],
+                                //    [2, '宁波', 0]
+                                //]
+                            }
+                        ],
+                        [
+                            {
+                                label: "城市",
+                                field: "city9",
+                                inputType: "select",//text,password,date,radio,check,textarea,switch,select,formselect
+                                //widthType: "fluid",//"fluid"
+                                holder: "请输入",       //文本占位符
+                                //verify: "",
+                                description: "密码", //辅助说明文本
+                                //refData: "初始参考值"      // "" | [] | [[id,key,0],[]] |[{}]|{}
+                                refData: [
+                                    [1, '杭州', 0],
+                                    [2, '宁波', 0]
+                                ]
+                            }
+                        ],
+                    ]
+                }
+            ],
+            });
+        });
+    </script>
+</body>
+
+</html>

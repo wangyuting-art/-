@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>平台应用管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box"></div>
+    <script>
+        layui.use(['pgLayout','pgTree', 'treeTablePage'], function () {
+            var $ = layui.$;
+            var page = layui.treeTablePage;
+            var app = layui.app;
+                        
+            var container = $("#box").pgLayout();
+
+            app.httpAsync('GET', '/api/app/GetApps', {}, function (res) {
+                if (res && res.code == "200") {
+                    var treeConfig = {
+                        config: {
+                            title: '应用列表',
+                            data: res.data,
+                            response: {
+                                treeId: "ID",
+                                title: "Name"
+                            }
+                        },
+                        events: {
+                            nodeClick: function (tree, obj) {
+                                app.httpAsync('POST', '/api/Role/GetAppRoles', {}, function (res) {
+                                    if (res && res.code == "200") {
+                                        page.render({
+                                            elem: container.content,
+                                            toolbar: {
+                                                searchFieldName: 'Name',
+                                                conditions: [
+                                                    //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                                                ],
+                                                buttons: [
+                                                    //{ event: 'delAll', icon: '&#xe640;', text: '批删' }
+                                                    //, { event: 'del', icon: '&#xe640;', text: '批删' }
+                                                ],
+                                            },
+                                            table: {
+                                                data: res,
+                                                tableOptions: {
+                                                    icon_key: 'Name',
+                                                    is_checkbox: false,
+                                                    primary_key: 'ID',
+                                                    parent_key: 'ParentId',
+                                                    cols: [
+                                                        {
+                                                            key: 'ID',
+                                                            title: 'ID',
+                                                            width: '50px',
+                                                            align: 'center',
+                                                        },
+                                                        {
+                                                            key: 'Name',
+                                                            title: '角色名称',
+                                                            width: '150px'
+                                                        },
+                                                        {
+                                                            key: 'Remark',
+                                                            title: '说明'
+                                                        },
+                                                        {
+                                                            key: 'CreatorName',
+                                                            title: '创建人',
+                                                            align: 'center',
+                                                            width: '150px',
+                                                        }, {
+                                                            field: 'CreateTime',
+                                                            title: '创建时间',
+                                                            align: 'center',
+                                                            width: '150px',
+                                                            template: function (item) {
+                                                                return app.dtFromUnixTimestamp(item.CreateTime, 'Y-M-D h:m');
+                                                            }
+                                                        }, {
+                                                            title: '操作',
+                                                            align: 'center',
+                                                            width: '180px',
+                                                            template: function () {
+                                                                return page.rowbarRender([
+                                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' },
+                                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑"' },
+                                                                    { event: 'rowAdd', icon: '&#xe631;', text: '添加' },
+                                                                    
+                                                                ]);
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            events: {
+                                                search: function (src) {
+                                                    alert(JSON.stringify(page.getSearchOptions()));
+                                                    console.log(src);
+                                                }
+                                            },
+
+                                        });
+                                    }
+                                    else
+                                        window.top.location.href = "/Views/pc/login.html"
+                                });
+                            }
+                        }
+                    };
+                    $(container.left).pgTree(treeConfig);
+                } else
+                    window.top.location.href = "login.html"
+            });            
+        });
+    </script>
+</body>
+
+</html>

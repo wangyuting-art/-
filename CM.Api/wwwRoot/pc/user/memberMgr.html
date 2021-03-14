@@ -1,0 +1,126 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 13:19:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>会员管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['tablePage','jquery'], function () {
+            var page = layui.tablePage,
+            $=layui.jquery;
+
+            ///pc/json/member.json
+            var url = '/api/user';
+
+            app.httpAsync('GET', url, {},{},function (res) {
+                if (res && res.code == "200") {
+                    page.render({
+                        elem: $(box),
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [],
+                        },
+                        table: {
+                            data: res.data,
+                            tableOptions: {
+                                cols: [
+                                    [
+                                        {
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'id',
+                                            title: 'ID',
+                                            //width: 50
+                                        }, {
+                                            field: 'userAcc',
+                                            title: '用户名',
+                                            //width: 80
+                                        }, {
+                                            field: 'userName',
+                                            title: '姓名',
+                                            width: 80
+                                        },{
+                                            field: 'phone',
+                                            title: '电话',
+                                            width: 120
+                                        }, {
+                                            field: 'tags',
+                                            title: '标签',
+                                        }, {
+                                            field: 'lastLoginedTime',
+                                            title: '最近登录时间',
+                                            width: 200
+                                        }
+                                        , {
+                                            title: '操作',
+                                            align: 'center',
+                                            width: 250,
+                                            templet: function () {
+                                                return page.rowbarRender([
+                                                    { event: 'rowEnable', icon: '&#xe601;', text: '启用"' },
+                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑"' },
+                                                    { event: 'rowPsw', icon: '&#xe631;', text: '修改密码' },
+                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' }
+                                                ]);
+                                            }
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                alert(JSON.stringify(page.getSearchOptions()));
+                            },
+                            rowDel: function (o) {
+                                layer.confirm('你确定要删除本行数据吗', {
+                                    icon: 3,
+                                    title: '警告'
+                                }, function (index) {
+                                    var url = '/api/user/' + o.data.id;
+                                    app.httpAsync('Delete', url, {}, {}, function (res) {
+                                        if (res && res.code == "200") {
+                                            layer.msg("删除成功！");
+                                        }
+                                    });
+                                    layer.close(index);
+                                    location.reload(true);
+                                });
+                            },
+                        },
+
+                    });
+                }
+                else
+                    app.alert.error("出错了！")
+            });
+        });
+    </script>
+</body>
+
+</html>

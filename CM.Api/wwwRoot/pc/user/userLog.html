@@ -1,0 +1,85 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户日志</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['tablePage','jquery'], function () {
+            var page = layui.tablePage,
+            $=layui.jquery;
+
+            app.httpAsync('GET', '/pc/json/log.json', {},{}, function (res) {
+                if (res && res.code == "200") {
+                    page.render({
+                        elem: $(box),
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [
+                                // { event: 'delAll', icon: '&#xe640;', text: '批删' }
+                                // , { event: 'del', icon: '&#xe640;', text: '新建' }
+                            ],
+                        },
+                        table: {
+                            data: res.data,
+                            tableOptions: {
+                                cols: [
+                                    [
+                                        {
+                                            field: 'id',
+                                            title: 'ID',
+                                            width: 60
+                                        }, {
+                                            field: 'userAcc',
+                                            title: '用户名',
+                                            width: 80
+                                        }, {
+                                            field: 'userName',
+                                            title: '姓名',
+                                            width: 80
+                                        },{
+                                            field: 'action',
+                                            title: '操作内容',
+                                        }, {
+                                            field: 'actionTime',
+                                            title: '操作时间',
+                                            width: 120
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                alert(JSON.stringify(page.getSearchOptions()));
+                            }
+                        },
+
+                    });
+                }
+                else
+                    app.alert.error("出错了！")
+            });
+        });
+    </script>
+</body>
+
+</html>

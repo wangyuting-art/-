@@ -1,0 +1,16 @@
+{
+  "code": "200",
+  "msg": "",
+  "count": 35,
+  "data": [{
+      "id": 1,
+      "name": "超级管理员",
+      "description":""
+    },
+    {
+      "id": 2,
+      "name": "甲村管理员",
+      "description":""
+    }
+  ]
+}

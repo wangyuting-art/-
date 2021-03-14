@@ -1,0 +1,105 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 14:49:06
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        if (window != window.top) {
+            window.app = window.top.app;
+        }
+
+        layui.use(['tablePage','jquery'], function () {
+            var page = layui.tablePage,
+                $ = layui.jquery;
+            ///pc/json/member.json
+            var url = '/api/xs';
+            app.httpAsync('GET', url, {},{},function (res) {
+                if (res && res.code == "200") {
+                    page.render({
+                        elem: $(box),
+                        toolbar: {
+                            searchFieldName: 'Name',
+                            conditions: [
+                                //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                            ],
+                            buttons: [],
+                        },
+                        table: {
+                            data: res.data,
+                            tableOptions: {
+                                cols: [
+                                    [
+                                        {
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'id',
+                                            title: 'ID',
+                                            //width: 50
+                                        },{
+                                            field: 'xsName',
+                                            title: '学生姓名',
+                                            //width: 80
+                                        },{
+                                            field: 'phone',
+                                            title: '电话',
+                                            width: 200
+                                        }, {
+                                            field: 'description',
+                                            title: '描述',
+                                            width: 200
+                                        },{
+                                            field: 'lastLoginedTime',
+                                            title: '最近登录时间',
+                                            width: 320,
+                                        }
+                                        , {
+                                            title: '操作',
+                                            align: 'center',
+                                            width: 250,
+                                            templet: function () {
+                                                return page.rowbarRender([
+                                                    { event: 'rowEdit', icon: '&#xe642;', text: '编辑"' },
+                                                    { event: 'rowDel', icon: '&#xe640;', text: '删除' }
+                                                ]);
+                                            }
+                                        }
+                                    ]
+                                ]
+                            }
+                        },
+                        events: {
+                            search: function (src) {
+                                alert(JSON.stringify(page.getSearchOptions()));
+                            },
+
+                        },
+
+                    });
+                }
+                else
+                    app.alert.error("出错了！")
+            });
+        });
+    </script>
+</body>
+
+</html>

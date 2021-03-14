@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模块表管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <!--<link rel="stylesheet" href="../assets/css/page.css">-->
+    <link rel="stylesheet" href="/assets/libs/xadmin/css/xadmin.css" />
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+    <script>
+        layui.use(['pgLayout', 'pgTree', 'tablePage'], function () {
+            var $ = layui.$;
+            var app = layui.app;
+            var page = layui.tablePage;
+
+            var mytree;
+            var container = $("#box").pgLayout();
+            app.httpAsync('GET', '/api/module', {}, function (res) {
+                if (res && res.code == "200") {
+                    var treeConfig = {
+                        config: {
+                            title: '平台模块',
+                            data: res.data,
+                            response: {
+                                treeId: "Id",
+                                title: "Name"
+                            }
+                        },
+                        events: {
+                            nodeClick: function (tree, obj) {
+                                //console.log(tree);
+                                //console.log(obj);
+                                mytree = tree;
+                                var url = '/api/table/' + obj.param.nodeId;
+                                app.httpAsync('Get', url, {}, function (res) {
+                                    if (res && res.code == "200") {
+                                        page.render({
+                                            elem: $(container.content),
+                                            id: 'mytab',
+                                            toolbar: {
+                                                searchFieldName: 'Name',
+                                                conditions: [
+                                                    //{ fieldName: 'testFieldName', text: '测试', dataType: 'string' }
+                                                ],
+                                                buttons: [
+                                                    { event: 'add', icon: '&#xe640;', text: '增加', skin: 1 }
+                                                ],
+                                            },
+                                            table: {
+                                                data: res.data,
+                                                tableOptions: {
+                                                    //defaultToolbar: [],
+                                                    cols: [
+                                                        [
+                                                            {
+                                                                type: 'numbers'
+                                                            }, {
+                                                                field: 'tableName',
+                                                                title: '英文表名',
+                                                                width: 120
+                                                            }, {
+                                                                field: 'tableCaption',
+                                                                title: '中文表名',
+                                                                width: 120
+                                                            }, {
+                                                                field: 'moduleId',
+                                                                title: '模块名称',
+                                                                width: 80,
+                                                                templet: function (item) {
+                                                                    var _name = "";
+                                                                    var id = item[this.field];
+                                                                    for (var i = 0; i < mytree.data.length; i++) {
+                                                                        if (mytree.data[i].Id == id) {
+                                                                            _name = mytree.data[i].Name;
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                    return _name;
+                                                                }
+                                                            }, {
+                                                                field: 'status',
+                                                                title: '是否发布',
+                                                                width: 80,
+                                                                templet: function (f) {
+                                                                    return page.statusFieldRender(f[this.field], [
+                                                                        { color: 0, text: "未发布" },
+                                                                        { color: 1, text: "已发布" },
+                                                                    ]);
+                                                                }
+                                                            }, {
+                                                                field: 'orderNo',
+                                                                title: '排序号',
+                                                                width: 80
+                                                            }, {
+                                                                field: 'description',
+                                                                title: '用途'
+                                                            }, {
+                                                                title: '操作',
+                                                                align: 'center',
+                                                                width: 200,
+                                                                templet: function (f) {
+                                                                    return page.rowbarRender([
+                                                                        { event: 'rowPublish', icon: '&#xe609;', text: '发布表', enabled: f.status == 0 },
+                                                                        { event: 'rowCancel', icon: '&#xe64f;', text: '取消发布', enabled: f.status == 1 },
+                                                                        { event: 'rowCopy', icon: '&#xe630;', text: '复制表', enabled: true },
+                                                                        { event: 'rowDel', icon: '&#xe640;', text: '删除表', enabled: true }
+                                                                    ], 1);
+                                                                }
+                                                            }
+                                                        ]
+                                                    ]
+                                                }
+                                            },
+                                            events: {
+                                                search: function (src) {
+                                                    alert(JSON.stringify(page.getSearchOptions()));
+                                                },
+                                                //adv: function (src) {
+                                                //    alert(src);
+                                                //},
+                                                add: function (src) {
+                                                    var title = '动态建表 - 增加内容',
+                                                        url = './b/moduleTableAdd.html';
+
+                                                    if (parent.xadmin) {
+                                                        parent.xadmin.open(title, url, 1060, 600);
+                                                    } else {
+                                                        layer.open({
+                                                            type: 2,
+                                                            title: title,
+                                                            //closeBtn: 0, //不显示关闭按钮
+                                                            shade: [0],
+                                                            area: ['1060px', '600px'],
+                                                            //offset: 'rb', //右下角弹出
+                                                            //time: 2000, //2秒后自动关闭
+                                                            anim: 2,
+                                                            content: [url, 'no'], //iframe的url
+                                                        });
+                                                    }
+                                                },
+                                                rowDouble: function (target) {
+                                                    var title = '动态建表 - 编辑表',
+                                                        url = './b/moduleTableEdit2.html?k=' + target.data.code;
+                                                    if (target.data.status !== 1)
+                                                        url='./b/moduleTableEdit.html?k=' + target.data.code;
+
+                                                    if (parent.xadmin) {
+                                                        parent.xadmin.open(title, url, 1060, 600);
+                                                    } else {
+                                                        layer.open({
+                                                            type: 2,
+                                                            title: title,
+                                                            //closeBtn: 0, //不显示关闭按钮
+                                                            shade: [0],
+                                                            area: ['1060px', '600px'],
+                                                            //offset: 'rb', //右下角弹出
+                                                            //time: 2000, //2秒后自动关闭
+                                                            anim: 2,
+                                                            content: [url, 'no'], //iframe的url
+                                                        });
+                                                    }
+                                                },
+                                                rowCancel: function (target) {
+                                                    layer.confirm('取消发布将删除物理表但不会删除结构，你确定继续吗?', {
+                                                        icon: 3,
+                                                        title: '警告'
+                                                    }, function (index) {
+                                                        var url = '/api/table/cancel/' + target.data.code;
+                                                        app.httpAsync('Delete', url, {}, function (res) {
+                                                            if (res && res.code == "200") {
+                                                                location.reload(true);
+                                                                layer.msg("操作成功！");
+                                                                
+
+                                                            }
+                                                        });
+                                                        layer.close(index);
+                                                        
+                                                    });
+                                                },
+                                                rowCopy: function (target) {
+                                                    var title = '动态建表 - 复制表',
+                                                        url = './b/moduleTableCopy.html?k=' + target.data.code;
+
+                                                    if (parent.xadmin) {
+                                                        parent.xadmin.open(title, url, 1060, 600);
+                                                    } else {
+                                                        layer.open({
+                                                            type: 2,
+                                                            title: title,
+                                                            //closeBtn: 0, //不显示关闭按钮
+                                                            shade: [0],
+                                                            area: ['1060px', '600px'],
+                                                            //offset: 'rb', //右下角弹出
+                                                            //time: 2000, //2秒后自动关闭
+                                                            anim: 2,
+                                                            content: [url, 'no'], //iframe的url
+                                                        });
+                                                    }
+                                                },
+                                                rowDel: function (target) {
+                                                    layer.confirm('本操作将删除表结构和所有数据且不可恢复，你确定继续吗?', {
+                                                        icon: 3,
+                                                        title: '警告'
+                                                    }, function (index) {
+                                                        var url = '/api/table/' + target.data.code;
+                                                        app.httpAsync('Delete', url, {}, function (res) {
+                                                            if (res && res.code == "200") {
+                                                                layer.msg("删除成功！");
+
+                                                            }
+                                                        });
+
+                                                        layer.close(index);
+                                                        location.reload(true);
+                                                    });
+                                                },
+                                                rowPublish: function (target) {
+                                                    //加载层-风格4
+                                                    var index = layer.msg('加载中', {
+                                                        icon: 16
+                                                        , shade: 0.01
+                                                        , time: 1500
+
+                                                    });
+                                                    var url = '/api/table/publish/' + target.data.code;
+                                                    app.httpAsync('Get', url, {}, function (res) {
+                                                        if (res && res.code == "200") {
+                                                            layer.msg("表发布成功！", function () {
+                                                                location.reload();
+                                                            });
+                                                        } else {
+                                                            layer.msg("表发布失败！详情：" + res.msg);
+                                                        }
+                                                    });
+
+                                                    layer.close(index);
+                                                }
+                                            },
+                                        });
+                                    }
+                                    else
+                                        window.top.location.href = "/Views/pc/login.html"
+                                });
+                            }
+                        }
+                    };
+                    $(container.left).pgTree(treeConfig);
+                } else
+                    window.top.location.href = "login.html"
+            });
+        });
+    </script>
+</body>
+
+</html>

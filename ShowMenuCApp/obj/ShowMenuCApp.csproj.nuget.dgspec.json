@@ -1,0 +1,249 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\ShowMenuCApp\\ShowMenuCApp.csproj": {}
+  },
+  "projects": {
+    "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj",
+        "projectName": "CM.Models",
+        "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj",
+        "packagesPath": "C:\\Users\\泪笑\\.nuget\\packages\\",
+        "outputPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\泪笑\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "sqlSugarCore": {
+              "target": "Package",
+              "version": "[5.0.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.113\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj",
+        "projectName": "CM.Repository",
+        "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj",
+        "packagesPath": "C:\\Users\\泪笑\\.nuget\\packages\\",
+        "outputPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\泪笑\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "sqlSugarCore": {
+              "target": "Package",
+              "version": "[5.0.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.113\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\CM.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\CM.Services.csproj",
+        "projectName": "CM.Services",
+        "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\CM.Services.csproj",
+        "packagesPath": "C:\\Users\\泪笑\\.nuget\\packages\\",
+        "outputPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\泪笑\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj"
+              },
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.113\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\ShowMenuCApp\\ShowMenuCApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\ShowMenuCApp\\ShowMenuCApp.csproj",
+        "projectName": "ShowMenuCApp",
+        "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\ShowMenuCApp\\ShowMenuCApp.csproj",
+        "packagesPath": "C:\\Users\\泪笑\\.nuget\\packages\\",
+        "outputPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\ShowMenuCApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\泪笑\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Models\\CM.Models.csproj"
+              },
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Repository\\CM.Repository.csproj"
+              },
+              "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\CM.Services.csproj": {
+                "projectPath": "D:\\学习\\大三下\\信息系统开发\\新建文件夹 (2)\\1722120071_王语庭_Code\\CMSolution 1\\CM.Services\\CM.Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.113\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

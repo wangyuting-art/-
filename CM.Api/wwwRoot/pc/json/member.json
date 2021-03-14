@@ -1,0 +1,24 @@
+{
+  "code": "200",
+  "msg": "",
+  "count": 35,
+  "data": [{
+      "id": 1,
+      "userAcc":"admin",
+      "userName": "张三", 
+      "icon":"no.jpg",     
+      "phone":"13500000001",
+      "tags":"学生党",
+      "lastLoginedTime":"2020-12-31 18:59"
+    },
+    {
+      "id": 2,
+      "userAcc":"lisi",
+      "userName": "李四",
+      "icon":"no.jpg",   
+      "phone":"13500000002",
+      "tags":"学生党",
+      "lastLoginedTime":"2020-12-30 18:59"
+    }
+  ]
+}

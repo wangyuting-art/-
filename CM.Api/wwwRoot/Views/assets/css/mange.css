@@ -1,0 +1,31 @@
+.sm-slideTop{padding: 10px;background: #F3F3F3;border-left: 5px solid #009688;margin:15px 0; }
+.divTitle{width: 95px;float: left;height: 36px;line-height: 36px;text-align: right;padding-right: 10px}
+/*弹出层*/
+.ol-sentdiv{
+    margin: 0 auto;
+}
+.ol-sent>tbody>tr>td{
+    padding: 5px 10px;
+    line-height: 24px;
+    font-size: 16px;
+}
+.ol-stitle{
+    text-align: right;
+    vertical-align: top;
+    min-width: 80px;
+    width: 100px;
+}
+.layui-form-label{
+    width: 90px;
+}
+.toolBtn>button{
+    min-width: 60px;
+}
+.layui-border-box {
+    padding-top: 74px;
+}
+
+.layui-table,
+.layui-table-view {
+    margin: 0;
+}

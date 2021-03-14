@@ -1,0 +1,20 @@
+{
+  "code": "200",
+  "msg": "",
+  "count": 35,
+  "data": [{
+      "id": 1,
+      "userAcc":"admin",
+      "userName": "张三",
+      "action":"登录",
+      "actionTime":"2020-12-31 18:59"
+    },
+    {
+      "id": 2,
+      "userAcc":"lisi",
+      "userName": "李四",
+      "action":"修改口令",
+      "actionTime":"2020-12-31 18:59"
+    }
+  ]
+}

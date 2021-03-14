@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CMS系统后台</title>
+  <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+  <script src="/assets/libs/layui/layui.js"></script>
+  <style>
+    .layui-logo {
+      color: #ccc !important;
+      font-weight: bold;
+      font-size:20px !important;
+      width:280px !important;
+    }
+    .dtree-layui-item cite {
+          font-size: 14px !important;
+     }
+
+      element.style {
+          text-align: center;
+      }
+      .layui-layout-admin .layui-body {
+          top:120px;
+          left: 0;
+      }
+          .layui-layout-admin .layui-body .layui-tab {
+              width: 400px;
+              margin: auto;
+          }
+          .layui-layout-admin .layui-footer {
+              left: 0;
+          }
+  </style>
+</head>
+
+<body class="layui-layout-body">
+  <div class="layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">科信部内容管理系统
+            <span class="layui-badge layui-bg-badge">V1.0</span>
+        </div>
+      <ul class="layui-nav layui-layout-right">
+  
+        <li class="layui-nav-item"><a href="">帮助文档</a></li>
+      </ul>
+    </div>
+
+   
+
+    <div class="layui-body">
+      <!-- 内容主体区域 -->
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title">
+                <li class="layui-this">系统登入</li>
+            </ul>
+            <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form layui-form-pane">
+                        <form class="layui-form" method="post">
+                            <div class="layui-form-item">
+                                <label for="L_email" class="layui-form-label">账号</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="L_loginName" name="userAcc" value="admin" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">
+
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="L_pass" class="layui-form-label">密码</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" id="L_pass" name="userPwd" value="admin" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label for="L_vercode" class="layui-form-label">图形码</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" id="L_imagecode" name="imagecode" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid" style="padding: 0!important;">
+                                    <!--<img src="/auth/imagecode?t=1555854150817" class="fly-imagecode">-->
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <span style="padding-left:20px;"><a href="#">忘记密码？</a></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-footer" style="text-align:center">
+      <!-- 底部固定区域 -->
+     DotNetCore开发实践课程
+    </div>
+  </div>
+  <script>
+    //JavaScript代码区域
+      layui.use(['element', 'form', 'layer'], function () {
+          var element = layui.element, form = layui.form, layer = layui.layer, $ = layui.jquery;
+
+          page = {
+                init: function () {                   
+
+                    //订阅事件
+                  form.on('submit(formDemo)', function (data) {
+                      var user = {
+                          useracc: data.field.userAcc,
+                          userpwd: data.field.userPwd
+
+                      }
+                      page.formSave(user);
+                      return false;
+                  });
+
+                },
+              formSave: function (obj) {
+
+                  $.ajax({
+                      type: "POST",
+                      url: "/api/token",
+                      contentType: "application/json",
+                      data: JSON.stringify(obj),
+                      success: function (res) {
+                          if (res.code == "200") {
+                              //layui.data('token', data);
+                              sessionStorage.setItem('token', JSON.stringify(res.data));
+                              location.href = "./index.html";
+                          } else {
+                              app.alert.info(res.msg);
+                          }
+                      },
+                      error: function (xhr, code, err) {
+                          layer.alert("用户名或口令不匹配！");
+                      }
+                  });
+
+
+                  
+              },
+          }
+          page.init();
+
+    });
+  </script>
+</body>
+
+</html>

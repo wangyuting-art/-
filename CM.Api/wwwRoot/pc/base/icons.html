@@ -1,0 +1,956 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>字体图标 - 页面元素 - Layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <!--<link rel="stylesheet" href="/assets/libs/xadmin/css/xadmin.css" />-->
+
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+
+    <style type="text/css">
+        .site-h1 {
+            margin-bottom: 10px;
+            line-height: 50px;
+            padding-bottom: 10px;
+            color: #393D49;
+            border-bottom: 1px solid #eee;
+            font-size: 28px;
+            font-weight: 300;
+        }
+
+            .site-h1 .layui-icon {
+                position: relative;
+                top: 5px;
+                font-size: 35px;
+                margin-right: 10px;
+            }
+
+        .site-text {
+            position: relative;
+        }
+
+        .site-inline {
+            font-size: 0;
+        }
+
+        .site-tree, .site-content {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        .site-content {
+            width: 860px;
+            padding: 20px 0 10px 20px;
+        }
+
+        /* 棰滆壊 */
+        .site-doc-color {
+            font-size: 0;
+        }
+
+            .site-doc-color li {
+                display: inline-block;
+                vertical-align: middle;
+                width: 180px;
+                margin-left: 20px;
+                margin-bottom: 20px;
+                padding: 20px 10px;
+                color: #fff;
+                text-align: center;
+                border-radius: 2px;
+                line-height: 22px;
+                font-size: 14px;
+            }
+
+                .site-doc-color li p[tips] {
+                    opacity: 0.8;
+                    font-size: 12px;
+                }
+
+        .site-doc-necolor li {
+            width: 108px;
+            margin-top: 15px;
+            margin-left: 0;
+            border-radius: 0;
+        }
+
+        .site-doc-bgcolor li {
+            padding: 10px;
+        }
+
+        .site-doc-box {
+            width: 960px;
+            max-height: 400px;
+        }
+        /* 瀹牸 */
+        .site-doc-icon {
+            margin-bottom: 30px;
+            font-size: 0;
+        }
+
+            .site-doc-icon li {
+                display: inline-block;
+                vertical-align: middle;
+                width: 100px;
+                /*height: 105px;*/
+                line-height: 25px;
+                padding: 15px 0;
+                margin-right: -1px;
+                margin-bottom: -1px;
+                /*border: 1px solid #e2e2e2;*/
+                font-size: 12px;
+                text-align: center;
+                color: #666;
+                transition: all .3s;
+                -webkit-transition: all .3s;
+            }
+
+        .site-doc-anim li {
+            height: auto;
+        }
+
+        .site-doc-icon li .layui-icon {
+            display: inline-block;
+            font-size: 28px;
+        }
+
+        .site-doc-icon li .doc-icon-name,
+        .site-doc-icon li .doc-icon-code {
+            color: #c2c2c2;
+        }
+
+        .site-doc-icon li .doc-icon-fontclass {
+            height: 40px;
+            line-height: 20px;
+            padding: 0 5px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .site-doc-icon li:hover {
+            background-color: #f2f2f2;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+   
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <div class="layui-main site-inline"> 
+        <div class="site-content">
+            <h1 class="site-h1">字体图标内置（147个）</h1>
+            <div class="site-doc-box">
+                <ul class="site-doc-icon"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //回调函数formSelectCallback，由调用窗口初始化
+
+        var icons = [
+            {
+                name: "滑块",
+                code: "&#xe714;",
+                fontclass: "layui-icon-slider",
+            },
+            {
+                name: "打印",
+                code: "&#xe66d;",
+                fontclass: "layui-icon-print",
+            },
+            {
+                name: "导出",
+                code: "&#xe67d;",
+                fontclass: "layui-icon-export",
+            },
+            {
+                name: "列",
+                code: "&#xe610;",
+                fontclass: "layui-icon-cols",
+            },
+            {
+                name: "退出全屏",
+                code: "&#xe758;",
+                fontclass: "layui-icon-screen-restore",
+            },
+            {
+                name: "全屏",
+                code: "&#xe622;",
+                fontclass: "layui-icon-screen-full",
+            },
+
+            {
+                name: "半星",
+                code: "&#xe6c9;",
+                fontclass: "layui-icon-rate-half",
+            },
+            {
+                name: "星星-空心",
+                code: "&#xe67b;",
+                fontclass: "layui-icon-rate",
+            },
+            {
+                name: "星星-实心",
+                code: "&#xe67a;",
+                fontclass: "layui-icon-rate-solid",
+            },
+            {
+                name: "手机",
+                code: "&#xe678;",
+                fontclass: "layui-icon-cellphone",
+            },
+            {
+                name: "验证码",
+                code: "&#xe679;",
+                fontclass: "layui-icon-vercode",
+            },
+            {
+                name: "微信",
+                code: "&#xe677;",
+                fontclass: "layui-icon-login-wechat",
+            },
+            {
+                name: "QQ",
+                code: "&#xe676;",
+                fontclass: "layui-icon-login-qq",
+            },
+
+            {
+                name: "微博",
+                code: "&#xe675;",
+                fontclass: "layui-icon-login-weibo",
+            },
+            {
+                name: "密码",
+                code: "&#xe673;",
+                fontclass: "layui-icon-password",
+            },
+            {
+                name: "用户名",
+                code: "&#xe66f;",
+                fontclass: "layui-icon-username",
+            },
+            {
+                name: "刷新-粗",
+                code: "&#xe9aa;",
+                fontclass: "layui-icon-refresh-3",
+            },
+            {
+                name: "授权",
+                code: "&#xe672;",
+                fontclass: "layui-icon-auz",
+            },
+            {
+                name: "右伸菜单",
+                code: "&#xe66b;",
+                fontclass: "layui-icon-spread-left",
+            },
+            {
+                name: "左伸菜单",
+                code: "&#xe668;",
+                fontclass: "layui-icon-shrink-right",
+            },
+
+            {
+                name: "雪花",
+                code: "&#xe6b1;",
+                fontclass: "layui-icon-snowflake",
+            },
+            {
+                name: "提示说明",
+                code: "&#xe702;",
+                fontclass: "layui-icon-tips",
+            },
+            {
+                name: "便签",
+                code: "&#xe66e;",
+                fontclass: "layui-icon-note",
+            },
+            {
+                name: "主页",
+                code: "&#xe68e;",
+                fontclass: "layui-icon-home",
+            },
+            {
+                name: "高级",
+                code: "&#xe674;",
+                fontclass: "layui-icon-senior",
+            },
+            {
+                name: "刷新",
+                code: "&#xe669;",
+                fontclass: "layui-icon-refresh",
+            },
+            {
+                name: "刷新",
+                code: "&#xe666;",
+                fontclass: "layui-icon-refresh-1",
+            },
+
+            {
+                name: "旗帜",
+                code: "&#xe66c;",
+                fontclass: "layui-icon-flag",
+            },
+            {
+                name: "主题",
+                code: "&#xe66a;",
+                fontclass: "layui-icon-theme",
+            },
+            {
+                name: "消息-通知",
+                code: "&#xe667;",
+                fontclass: "layui-icon-notice",
+            },
+            {
+                name: "网站",
+                code: "&#xe7ae;",
+                fontclass: "layui-icon-website",
+            },
+            {
+                name: "控制台",
+                code: "&#xe665;",
+                fontclass: "layui-icon-console",
+            },
+            {
+                name: "表情-惊讶",
+                code: "&#xe664;",
+                fontclass: "layui-icon-face-surprised",
+            },
+            {
+                name: "设置-空心",
+                code: "&#xe716;",
+                fontclass: "layui-icon-set",
+            },
+
+            {
+                name: "模板",
+                code: "&#xe656;",
+                fontclass: "layui-icon-template-1",
+            },
+            {
+                name: "应用",
+                code: "&#xe653;",
+                fontclass: "layui-icon-app",
+            },
+            {
+                name: "模板",
+                code: "&#xe663;",
+                fontclass: "layui-icon-template",
+            },
+            {
+                name: "赞",
+                code: "&#xe6c6;",
+                fontclass: "layui-icon-praise",
+            },
+            {
+                name: "踩",
+                code: "&#xe6c5;",
+                fontclass: "layui-icon-tread",
+            },
+            {
+                name: "男",
+                code: "&#xe662;",
+                fontclass: "layui-icon-male",
+            },
+
+            {
+                name: "女",
+                code: "&#xe661;",
+                fontclass: "layui-icon-female",
+            },
+            {
+                name: "相机-空心",
+                code: "&#xe660;",
+                fontclass: "layui-icon-camera",
+            },
+            {
+                name: "相机-实心",
+                code: "&#xe65d;",
+                fontclass: "layui-icon-camera-fill",
+            },
+            {
+                name: "菜单-水平",
+                code: "&#xe65f;",
+                fontclass: "layui-icon-more",
+            },
+            {
+                name: "菜单-垂直",
+                code: "&#xe671;",
+                fontclass: "layui-icon-more-vertical",
+            },
+            {
+                name: "金额-人民币",
+                code: "&#xe65e;",
+                fontclass: "layui-icon-rmb",
+            },
+            {
+                name: "金额-美元",
+                code: "&#xe659;",
+                fontclass: "layui-icon-dollar",
+            },
+            {
+                name: "钻石-等级",
+                code: "&#xe735;",
+                fontclass: "layui-icon-diamond",
+            },
+
+            {
+                name: "火",
+                code: "&#xe756;",
+                fontclass: "layui-icon-fire",
+            },
+            {
+                name: "返回",
+                code: "&#xe65c;",
+                fontclass: "layui-icon-return",
+            },
+            {
+                name: "位置-地图",
+                code: "&#xe715;",
+                fontclass: "layui-icon-location",
+            },
+            {
+                name: "办公-阅读",
+                code: "&#xe705;",
+                fontclass: "layui-icon-read",
+            },
+            {
+                name: "调查",
+                code: "&#xe6b2;",
+                fontclass: "layui-icon-survey",
+            },
+            {
+                name: "表情-微笑",
+                code: "&#xe6af;",
+                fontclass: "layui-icon-face-smile",
+            },
+            {
+                name: "表情-哭泣",
+                code: "&#xe69c;",
+                fontclass: "layui-icon-face-cry",
+            },
+
+            {
+                name: "购物车",
+                code: "&#xe698;",
+                fontclass: "layui-icon-cart-simple",
+            },
+            {
+                name: "购物车",
+                code: "&#xe657;",
+                fontclass: "layui-icon-cart",
+            },
+            {
+                name: "下一页",
+                code: "&#xe65b;",
+                fontclass: "layui-icon-next",
+            },
+            {
+                name: "上一页",
+                code: "&#xe65a;",
+                fontclass: "layui-icon-prev",
+            },
+            {
+                name: "上传-空心-拖拽",
+                code: "&#xe681;",
+                fontclass: "layui-icon-upload-drag",
+            },
+            {
+                name: "上传-实心",
+                code: "&#xe67c;",
+                fontclass: "layui-icon-upload",
+            },
+            {
+                name: "下载-圆圈",
+                code: "&#xe601;",
+                fontclass: "layui-icon-download-circle",
+            },
+
+            {
+                name: "组件",
+                code: "&#xe857;",
+                fontclass: "layui-icon-component",
+            },
+            {
+                name: "文件-粗",
+                code: "&#xe655;",
+                fontclass: "layui-icon-file-b",
+            },
+            {
+                name: "用户",
+                code: "&#xe770;",
+                fontclass: "layui-icon-user",
+            },
+            {
+                name: "发现-实心",
+                code: "&#xe670;",
+                fontclass: "layui-icon-find-fill",
+            },
+            {
+                name: "loading",
+                code: "&#xe63d;",
+                fontclass: "layui-icon-loading",
+            },
+            {
+                name: "loading",
+                code: "&#xe63e;",
+                fontclass: "layui-icon-loading-1",
+            },
+            {
+                name: "添加",
+                code: "&#xe654;",
+                fontclass: "layui-icon-add-1",
+            },
+
+            {
+                name: "播放",
+                code: "&#xe652;",
+                fontclass: "layui-icon-play",
+            },
+            {
+                name: "暂停",
+                code: "&#xe651;",
+                fontclass: "layui-icon-pause",
+            },
+            {
+                name: "音频-耳机",
+                code: "&#xe6fc;",
+                fontclass: "layui-icon-headset",
+            },
+            {
+                name: "视频",
+                code: "&#xe6ed;",
+                fontclass: "layui-icon-video",
+            },
+            {
+                name: "语音-声音",
+                code: "&#xe688;",
+                fontclass: "layui-icon-voice",
+            },
+            {
+                name: "消息-通知-喇叭",
+                code: "&#xe645;",
+                fontclass: "layui-icon-speaker",
+            },
+            {
+                name: "删除线",
+                code: "&#xe64f;",
+                fontclass: "layui-icon-fonts-del",
+            },
+
+            {
+                name: "代码",
+                code: "&#xe64e;",
+                fontclass: "layui-icon-fonts-code",
+            },
+            {
+                name: "HTML",
+                code: "&#xe64b;",
+                fontclass: "layui-icon-fonts-html",
+            },
+            {
+                name: "字体加粗",
+                code: "&#xe62b;",
+                fontclass: "layui-icon-fonts-strong",
+            },
+            {
+                name: "删除链接",
+                code: "&#xe64d;",
+                fontclass: "layui-icon-unlink",
+            },
+            {
+                name: "图片",
+                code: "&#xe64a;",
+                fontclass: "layui-icon-picture",
+            },
+            {
+                name: "链接",
+                code: "&#xe64c;",
+                fontclass: "layui-icon-link",
+            },
+            {
+                name: "表情-笑-粗",
+                code: "&#xe650;",
+                fontclass: "layui-icon-face-smile-b",
+            },
+
+            {
+                name: "左对齐",
+                code: "&#xe649;",
+                fontclass: "layui-icon-align-left",
+            },
+            {
+                name: "右对齐",
+                code: "&#xe648;",
+                fontclass: "layui-icon-align-right",
+            },
+            {
+                name: "居中对齐",
+                code: "&#xe647;",
+                fontclass: "layui-icon-align-center",
+            },
+            {
+                name: "字体-下划线",
+                code: "&#xe646;",
+                fontclass: "layui-icon-fonts-u",
+            },
+            {
+                name: "字体-斜体",
+                code: "&#xe644;",
+                fontclass: "layui-icon-fonts-i",
+            },
+            {
+                name: "Tabs 选项卡",
+                code: "&#xe62a;",
+                fontclass: "layui-icon-tabs",
+            },
+            {
+                name: "单选框-选中",
+                code: "&#xe643;",
+                fontclass: "layui-icon-radio",
+            },
+
+            {
+                name: "单选框-候选",
+                code: "&#xe63f;",
+                fontclass: "layui-icon-circle",
+            },
+            {
+                name: "编辑",
+                code: "&#xe642;",
+                fontclass: "layui-icon-edit",
+            },
+            {
+                name: "分享",
+                code: "&#xe641;",
+                fontclass: "layui-icon-share",
+            },
+            {
+                name: "删除",
+                code: "&#xe640;",
+                fontclass: "layui-icon-delete",
+            },
+            {
+                name: "表单",
+                code: "&#xe63c;",
+                fontclass: "layui-icon-form",
+            },
+            {
+                name: "手机-细体",
+                code: "&#xe63b;",
+                fontclass: "layui-icon-cellphone-fine",
+            },
+            {
+                name: "聊天 对话 沟通",
+                code: "&#xe63a;",
+                fontclass: "layui-icon-dialogue",
+            },
+
+            {
+                name: "文字格式化",
+                code: "&#xe639;",
+                fontclass: "layui-icon-fonts-clear",
+            },
+            {
+                name: "窗口",
+                code: "&#xe638;",
+                fontclass: "layui-icon-layer",
+            },
+            {
+                name: "日期",
+                code: "&#xe637;",
+                fontclass: "layui-icon-date",
+            },
+            {
+                name: "水 下雨",
+                code: "&#xe636;",
+                fontclass: "layui-icon-water",
+            },
+            {
+                name: "代码-圆圈",
+                code: "&#xe635;",
+                fontclass: "layui-icon-code-circle",
+            },
+            {
+                name: "轮播组图",
+                code: "&#xe634;",
+                fontclass: "layui-icon-carousel",
+            },
+            {
+                name: "翻页",
+                code: "&#xe633;",
+                fontclass: "layui-icon-prev-circle",
+            },
+
+            {
+                name: "布局",
+                code: "&#xe632;",
+                fontclass: "layui-icon-layouts",
+            },
+            {
+                name: "工具",
+                code: "&#xe631;",
+                fontclass: "layui-icon-util",
+            },
+            {
+                name: "选择模板",
+                code: "&#xe630;",
+                fontclass: "layui-icon-templeate-1",
+            },
+            {
+                name: "上传-圆圈",
+                code: "&#xe62f;",
+                fontclass: "layui-icon-upload-circle",
+            },
+            {
+                name: "树",
+                code: "&#xe62e;",
+                fontclass: "layui-icon-tree",
+            },
+            {
+                name: "表格",
+                code: "&#xe62d;",
+                fontclass: "layui-icon-table",
+            },
+            {
+                name: "图表",
+                code: "&#xe62c;",
+                fontclass: "layui-icon-chart",
+            },
+            {
+                name: "图标 报表 屏幕",
+                code: "&#xe629;",
+                fontclass: "layui-icon-chart-screen",
+            },
+            {
+                name: "引擎",
+                code: "&#xe628;",
+                fontclass: "layui-icon-engine",
+            },
+            {
+                name: "下三角",
+                code: "&#xe625;",
+                fontclass: "layui-icon-triangle-d",
+            },
+            {
+                name: "右三角",
+                code: "&#xe623;",
+                fontclass: "layui-icon-triangle-r",
+            },
+            {
+                name: "文件",
+                code: "&#xe621;",
+                fontclass: "layui-icon-file",
+            },
+            {
+                name: "设置-小型",
+                code: "&#xe620;",
+                fontclass: "layui-icon-set-sm",
+            },
+            {
+                name: "减少-圆圈",
+                code: "&#xe616",
+                fontclass: "layui-icon-reduce-circle",
+            },
+            {
+                name: "添加-圆圈",
+                code: "&#xe61f;",
+                fontclass: "layui-icon-add-circle",
+            },
+
+            {
+                name: "404",
+                code: "&#xe61c;",
+                fontclass: "layui-icon-404",
+            },
+            {
+                name: "关于",
+                code: "&#xe60b;",
+                fontclass: "layui-icon-about",
+            },
+            {
+                name: "箭头 向上",
+                code: "&#xe619;",
+                fontclass: "layui-icon-up",
+            },
+            {
+                name: "箭头 向下",
+                code: "&#xe61a;",
+                fontclass: "layui-icon-down",
+            },
+            {
+                name: "箭头 向左",
+                code: "&#xe603;",
+                fontclass: "layui-icon-left",
+            },
+            {
+                name: "箭头 向右",
+                code: "&#xe602;",
+                fontclass: "layui-icon-right",
+            },
+            {
+                name: "圆点",
+                code: "&#xe617;",
+                fontclass: "layui-icon-circle-dot",
+            },
+
+            {
+                name: "搜索",
+                code: "&#xe615;",
+                fontclass: "layui-icon-search",
+            },
+            {
+                name: "设置-实心",
+                code: "&#xe614;",
+                fontclass: "layui-icon-set-fill",
+            },
+            {
+                name: "群组",
+                code: "&#xe613;",
+                fontclass: "layui-icon-group",
+            },
+            {
+                name: "好友",
+                code: "&#xe612;",
+                fontclass: "layui-icon-friends",
+            },
+            {
+                name: "回复 评论 实心",
+                code: "&#xe611;",
+                fontclass: "layui-icon-reply-fill",
+            },
+            {
+                name: "菜单 隐身 实心",
+                code: "&#xe60f;",
+                fontclass: "layui-icon-menu-fill",
+            },
+            {
+                name: "记录",
+                code: "&#xe60e;",
+                fontclass: "layui-icon-log",
+            },
+            {
+                name: "图片-细体",
+                code: "&#xe60d;",
+                fontclass: "layui-icon-picture-fine",
+            },
+            {
+                name: "表情-笑-细体",
+                code: "&#xe60c;",
+                fontclass: "layui-icon-face-smile-fine",
+            },
+            {
+                name: "列表",
+                code: "&#xe60a;",
+                fontclass: "layui-icon-list",
+            },
+            {
+                name: "发布 纸飞机",
+                code: "&#xe609;",
+                fontclass: "layui-icon-release",
+            },
+            {
+                name: "对 OK",
+                code: "&#xe605;",
+                fontclass: "layui-icon-ok",
+            },
+            {
+                name: "帮助",
+                code: "&#xe607;",
+                fontclass: "layui-icon-help",
+            },
+            {
+                name: "客服",
+                code: "&#xe606;",
+                fontclass: "layui-icon-chat",
+            },
+            {
+                name: "top 置顶",
+                code: "&#xe604;",
+                fontclass: "layui-icon-top",
+            },
+            {
+                name: "收藏-空心",
+                code: "&#xe600;",
+                fontclass: "layui-icon-star",
+            },
+            {
+                name: "收藏-实心",
+                code: "&#xe658;",
+                fontclass: "layui-icon-star-fill",
+            },
+            {
+                name: "关闭-实心",
+                code: "&#x1007;",
+                fontclass: "layui-icon-close-fill",
+            },
+            {
+                name: "关闭-空心",
+                code: "&#x1006;",
+                fontclass: "layui-icon-close",
+            },
+            {
+                name: "正确",
+                code: "&#x1005;",
+                fontclass: "layui-icon-ok-circle",
+            },
+            {
+                name: "添加-圆圈-细体",
+                code: "&#xe608;",
+                fontclass: "layui-icon-add-circle-fine",
+            }
+        ];
+        layui.use(['jquery', 'laytpl','pgScroll'], function () {
+            var $ = layui.jquery, laytpl = layui.laytpl;
+
+            var html = [];
+            icons.forEach(function (item, index){                
+                laytpl([
+                    '<li data-id="'+index+'">'
+                    , '<i class="layui-icon {{d.fontclass}}"></i>'
+                    , '<div class="doc-icon-name">{{d.name}}</div>'
+                    , '</li>'
+                ].join('')).render(item, function (s) {
+                    html.push(s);
+                });
+            });
+            $('.site-doc-box').pgScroll();
+            $('.site-doc-icon').html(html.join(''));
+
+            $('li').click(function (src) {
+                var index = parseInt($(src.currentTarget).attr('data-id'));
+
+                window["formSelectCallback"] && formSelectCallback(icons[index]);
+                //关闭窗口
+                if (window != window.parent) {
+                    var index = parent.layer.index;
+                    parent.layer.close(index);
+                } else {
+                    window.close();
+                }
+            });
+        });
+
+        
+    </script>
+</body>
+</html>

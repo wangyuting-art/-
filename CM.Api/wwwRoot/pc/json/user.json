@@ -1,0 +1,24 @@
+{
+  "code": "200",
+  "msg": "",
+  "count": 35,
+  "data": [{
+      "id": 1,
+      "userAcc":"admin",
+      "userName": "张三",
+      "roleName":"管理员",
+      "phone":"13500000001",
+      "disabled":0,
+      "lastLoginedTime":"2020-12-31 18:59"
+    },
+    {
+      "id": 2,
+      "userAcc":"lisi",
+      "userName": "李四",
+      "roleName":"管理员",
+      "phone":"13500000002",
+      "disabled":0,
+      "lastLoginedTime":"2020-12-30 18:59"
+    }
+  ]
+}

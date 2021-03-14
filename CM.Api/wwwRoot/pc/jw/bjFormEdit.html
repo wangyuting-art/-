@@ -1,0 +1,124 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-03-02 13:26:32
+ * @LastEditTime: 2020-03-02 14:46:51
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\base\menuForm.html
+ -->
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加系统菜单</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="/assets/libs/xadmin/css/xadmin.css" />
+    
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        //页面不等于顶级窗口，index页面，导致无法单独打开页面
+        if (window != window.top) {
+            //app在helper.js最后一行,window.app = that;
+            window.app = window.top.app;
+        }
+        layui.use(['element', 'form', 'formPage'], function () {
+            var page = layui.formPage;
+            //var app = layui.app;
+            var code = app.urlGetParam(location.search, 'k');
+            if (code) {
+                var url = "/api/bj/" + code;
+                app.httpAsync('GET', url, {}, {},  function (res) {
+                    if (res && res.code == "200") {
+                        renderTableField(res.data);
+                    }
+                });
+            }
+            function renderTableField(data) {
+                page.render({
+                    elem: box,
+                    tabs: [{
+                        title: '',
+                        type: 'form',
+                        opts: [
+                            [
+                                {
+                                    label: "班级名称",
+                                    field: "bjname",
+                                    inputType: "text",
+                                    placeholder: "请输入",
+                                    verify: "required",
+                                    description: "必填，不能重名",
+                                    refData: data.name
+                                }
+                            ],
+                            [
+                                {
+                                    label: "描述",
+                                    field: "description",
+                                    /*inputType: "textarea",*///text,password,date,radio,check,textarea,switch,select,formselect
+                                    inputType: "text",
+                                    widthType: "fluid",//"fluid"
+                                    placeholder: "请输入",       //文本占位符
+                                    refData: data.description
+                                }
+                            ]
+                        ]
+                    }],
+                    //initFormData: data,//初始表单数据
+                    initFormData: { "bjname": data.bjname,"description":data.description },
+                    events: {
+                        dosubmit: function (data) {
+                            var res = false;
+                            //提交两个字段
+                            var postFields = {
+                                table: ["bjname", "description"]
+                            }
+                            //定义空集合，遍历数组
+                            var table = {};
+                            postFields.table.forEach(it => {
+                                table[it] = data.table[it];
+                            })
+                            //stringify json转字符串，ajax异步调用，调用接口action
+                            app.httpAsync('PUT', '/api/bj/'+code, JSON.stringify(table),  {}, function (rdata) {
+                                if (rdata && rdata.code == "200"){
+                                    if (parent.xadmin) {
+                                        //刷新前一页面
+                                        parent.refreshCurrentTab && parent.refreshCurrentTab();
+                                    } else {
+                                        parent.location.reload();
+                                    }
+                                    //决定是否关闭弹层
+                                    if (data.table.continue && data.table.continue == 'on') {
+                                        var index = parent.layer.getFrameIndex(window.name);
+                                        //关闭页面
+                                        parent.layer.close(index);
+                                        //组织表单跳转，如果需要，去掉这段就可以
+                                        return false;
+                                    } else {
+                                        location.reload();
+                                    }
+                                    res = true;
+                                } else
+                                    app.alert.error('出错了');
+                            });
+                            return res;
+                        }
+                    }
+
+                });
+            }
+            
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+﻿.layui-table td, .layui-table th {
+    font-size: 12px;
+    padding: 4px 15px;
+    min-height: 28px;
+    line-height: 28px;
+    box-sizing: border-box;
+}
+
+.layui-card{
+    min-width:620px;
+}
+.layui-card-offset {
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+.layui-card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+.layui-table-tool {
+    border: none;
+    background-color: #fff;
+    padding: 10px 0;
+    min-height: 0px;
+}
+
+
+.layui-btn-icon {
+    margin: 10px;
+}
+
+    .layui-btn-icon:hover {
+        color: #009688;
+    }
+
+    .layui-btn-success{
+        background-color: #5FB878;
+    }
+
+.table-none {
+    width:100%;
+    text-align:center;
+}
+
+.layui-laypage {
+    margin: 0;
+}

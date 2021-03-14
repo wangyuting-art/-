@@ -1,0 +1,122 @@
+﻿body {
+    /*background: #f1f1f1;
+    padding: 5px 0;*/
+}
+
+.layui-table td, .layui-table th {
+    font-size: 12px;
+    padding: 4px 15px;
+    min-height: 28px;
+    line-height: 28px;
+    box-sizing: border-box;
+}
+
+.layui-card {
+    min-width: 400px;
+    min-height:100%;
+    margin-top:-5px;
+}
+
+.layui-card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 100%;
+}
+
+/*.layui-table-box {
+    padding-top: 5px;
+}*/
+
+.layui-table-body .layui-none {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.layui-table-tool {
+    border: none;
+    background-color: #fff;
+    padding: 10px 0;
+    min-height: 0px;
+}
+
+.layui-table-tool .tip {
+    padding-left:10px;
+    color:orangered;
+}
+
+.layui-table-view {
+    border: none;
+    margin: 0;
+}
+
+.layui-btn-icon {
+    margin: 10px;
+}
+
+    .layui-btn-icon:hover {
+        color: #009688;
+    }
+
+.layui-btn-icon-pointer {
+    cursor: pointer;
+}
+
+.layui-btn-success{
+    background-color: #5FB878;
+}
+
+.layui-laypage {
+    margin: 0;
+}
+.layui-table-cell {
+    height: auto;
+    padding:0 5px;
+    overflow: visible;
+    text-overflow: inherit;
+    white-space: normal;
+}
+
+.layui-table-cell .layui-input {
+    height: 28px;
+}
+    .layui-table-cell  label {
+        padding-left:2px;
+        padding-right:10px;
+    }
+
+.layui-btn-group .layui-btn-primary-1:first-child {
+    border-left: 1px solid #f0f0f0;
+}
+
+.layui-btn-primary-1 {
+    border: 1px solid #f0f0f0;
+    background-color: #fff;
+    color: #000;
+}
+
+    .layui-btn-primary-1:hover {
+        color: #009688;
+    }
+
+.layui-bg-green-2 {
+    background-color: #5FB878;
+}
+
+.layui-table-body::-webkit-scrollbar { /*滚动条整体样式*/
+    width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 5px;
+}
+
+.layui-table-body::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+}
+
+.layui-table-body::-webkit-scrollbar-track { /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+}
+

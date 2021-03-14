@@ -1,0 +1,100 @@
+﻿<!--
+ * @Author: your name
+ * @Date: 2020-02-29 17:09:11
+ * @LastEditTime: 2020-03-02 14:49:06
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \CM\pc\user\roleMgr.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/css/page.css">
+    <script src="/assets/libs/layui/layui.js"></script>
+    <script src="/assets/libs/layui/ext/global.js"></script>
+</head>
+<body>
+    <div id="box" class="layui-fluid"></div>
+
+    <script>
+        layui.use(['tablePage', 'jquery'], function () {
+            var page = layui.tablePage, $ = layui.jquery;
+
+            var statusArray = [
+                { color: 2, text: '重点关注' },
+                { color: 3, text: '一般关注' },
+                { color: 4, text: '接触关注' },
+                { color: 5, text: '无需关注' },
+            ]
+
+            page.render({
+                elem: $('#box'),
+                toolbar: {
+                    searchFieldName: 'sname',
+                    adv: false,
+                    conditions: [
+                        { fieldName: 'myclass', text: '班级名', dataType: 'string' },
+                        { fieldName: 'college', text: '学院名', dataType: 'string' },
+                    ],
+                    buttons: [
+                        { event: 'demo1', icon: '', text: '测试' },
+                        { event: 'demo2', icon: '', text: '演示' },
+                    ]
+                },
+                table: {
+                    data: [
+                        { sno: '1701101', sname: '张1', myclass: '17r1', status:2 },
+                        { sno: '1701102', sname: '张2', myclass: '17r1', status:1 },
+                        { sno: '1701103', sname: '张3', myclass: '17r2', status:1 },
+                        { sno: '1701104', sname: '张4', myclass: '17r2', status:0 },
+                        { sno: '1701105', sname: '张5', myclass: '17r2', status:3 },
+                    ],
+                    tableOptions: {
+                        cols: [[
+                            { type: 'checkbox' }
+                            , { field: 'sno', width: 80, title: '学号' }
+                            , { field: 'sname', width: 110, title: '姓名' }
+                            , { field: 'myclass', width: 110, title: '班级' }
+                            , {
+                                field: 'status', width: 110, title: '状态',
+                                templet: function (f) {
+                                    return page.statusFieldRender(f[this.field],statusArray)
+                                }
+                            }
+                            , {
+                                title: '操作',
+                                templet: function () {
+                                    return page.rowbarRender([
+                                        { event: 'rowEdit', icon: '&#xe642;', text: '编辑', enabled: true },
+                                        { event: 'rowDel', icon: '&#xe640;', text: '删除', enabled: true },
+                                    ],1)
+                                }
+                            }
+                        ]]
+                    }
+
+                },
+                events: {
+                    search: function (ev) {
+                        var json = page.getSearchOptions();
+                        alert(JSON.stringify(json));
+                    },
+                    demo1: function (ev) {
+                        alert('demo1-测试')
+                    },
+                    demo2: function (ev) {
+                        alert('demo2-演示')
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

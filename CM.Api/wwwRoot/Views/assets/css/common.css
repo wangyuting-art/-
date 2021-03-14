@@ -1,0 +1,247 @@
+.divTitle{width: 95px;float: left;height: 36px;line-height: 36px;text-align: right;padding-right: 10px}
+#filetest{display: none}
+#SP_filetest{display: none}
+#WP_filetest{display: none}
+.imgSrc{background: #F3F3F3;cursor:not-allowed }
+.submitDiv{margin-left: 95px;margin-top: 10px}
+
+.blockCont{margin-left: 95px}
+
+.contformInfo{float: left;display: block;margin-top:8px}
+.contformdate{margin-top: 10px}
+
+.divTab{padding:0 15px}
+.tabContent{height: auto!important;}
+.sm-slideTop{padding: 10px;background: #F3F3F3;border-left: 5px solid #009688;margin:15px 0; }
+.tabBorder{border: 1px solid #CCCCCC}
+
+.buttonShow{display: none}
+
+/*same*/
+.moreImg{
+    padding-left: 30px
+}
+.ueditorDiv{
+    padding-left: 30px;
+}
+.same-main{
+    width: 90%;
+    margin-top: 20px;
+    margin-left: 5%;
+    border: 1px solid #393D49;
+}
+.same-header{
+    background-color: #393D49;
+    font-size: 14px;
+    color: #C1C2AF;
+    line-height: 28px;
+    padding-left: 10px;
+    height: 30px;
+}
+.same-header>span>a{
+    color:#C1C2AF ;
+}
+.same-header>span>a:hover{
+    color:white ;
+}
+h1{
+    font-size: 20px;
+    margin-left: 3%;
+    margin-top: 20px;
+}
+.same-button{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.ps-btn{
+    height: 25px;
+    width: 80px!important;
+    line-height: 25px;
+    border-radius:5px;
+    margin-right: 5%;
+}
+.ps-btn a{
+    color: white;
+}
+.same-btn{
+    height: 25px;
+    line-height: 25px;
+    border-radius:5px;
+    margin-left: 5%;
+}
+.searchBtn{
+    margin: 0;
+}
+.same-btn a{
+    color: white;
+}
+.same-rightBtn{
+    /*float: right;*/
+    margin-right: 5%;
+    padding-bottom: 5px;
+}
+.same-rightBtn a{
+    color: white;
+}
+/*表格*/
+.s-table{
+    margin-left: 5%;
+    width: 90%;
+}
+.same-table{
+    text-align: center;
+}
+.s-tableShop{
+    border:#EEEEEE 1px solid;
+    margin-bottom: 20px;
+}
+.s-edit,.s-del{
+    width: 65px;
+    height: 25px;
+    line-height: 25px;
+}
+.layui-form-switch{
+    margin-top: 0;
+}
+/*表头*/
+.s-chose{
+    width: 45px;
+}
+.s-Id{
+    width: 45px;
+}
+.s-ImageUrl{
+    width: 60px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.s-tableThead{
+    background-color: #F8F8F8;
+    border:#EEEEEE 1px solid;
+    line-height: 35px;
+    padding: 0;
+}
+.s-tableThead>tr>th,.s-tableTbody>tr>td{
+    border:#EEEEEE 1px solid;
+    padding: 0;
+    text-align: center;
+    line-height: 35px;
+}
+
+.layui-table thead tr{
+    background-color: #F8F8F8;
+}
+.layui-table>thead>tr>th{
+    padding: 2px 5px;
+    line-height: 24px;
+    background-color: #F8F8F8;
+    font-size: 14px;
+    color: #0C0C0C;
+    text-align: center;
+    font-weight: 600;
+}
+.layui-table-cell{
+    text-align: center;
+    height: auto;
+}
+/*上传图片大小*/
+.upload-logo{
+    width: 70px;
+    height: 70px;
+    padding: 5px;
+}
+/*排序长度*/
+.sort{
+    width: 40px;
+    text-align: center;
+    height: 20px;
+    margin-top: 5px;
+}
+/*操作链接样式*/
+.operation{
+    color: #28A3FF;
+    width: 40px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+.operation:hover{
+    color: red;
+}
+.on-off{
+    text-align: center;
+    margin: auto;
+}
+.layui-form-item {
+    /*margin: 0;*/
+}
+.ap-add{
+    margin: 0;
+}
+/*产品列表的搜索框*/
+
+.layui-form-select dl dd, .layui-form-select dl dt{
+    line-height: 25px;
+
+}
+.layui-form-select dl{
+    top:26px;
+}
+.layui-input, .layui-select, .layui-textarea{
+    height: 28px;
+    margin-top: 4px;
+}
+.layui-form-select dl{
+    min-height: 100px;
+}
+.selectSearch{
+    margin-left: 5%;
+}
+.SaleStatusLabel{
+    padding: 7px 10px 0 0;
+
+}
+.select1Tr, .select2Tr{
+    display: none;
+}
+.pl-input{
+    width: 150px;
+    height: 25px;
+    display: inline;
+}
+.pl-Price{
+    width: 80px;
+    height: 25px;
+    display: inline;
+    margin-right: 5px;
+    margin-top: 0;
+}
+.vagueText{
+    margin-top: 0;
+}
+.pl-btn{
+    margin-left: -4px;
+    border-radius:0 ;
+}
+/*限时抢购按钮*/
+.fs-rightBtn{
+    margin-right: 10px;
+
+}
+
+.same-page{
+    margin-left: 5%;
+}
+/*详情套餐*/
+.InfoSku>thead>tr>td{
+    padding: 5px;
+    text-align: center;
+    font-weight: 600;
+    border: solid 1px #8D8D8D;
+}
+.InfoSku>tbody>tr>td{
+    padding: 5px;
+    text-align: center;
+    border: solid 1px #8D8D8D;
+}

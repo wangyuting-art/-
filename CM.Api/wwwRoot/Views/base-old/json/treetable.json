@@ -1,0 +1,98 @@
+{
+  "code": 200,
+  "msg": "ok",
+  "count": 13,
+  "data": [
+    {
+      "id": 1,
+      "parentCategoryId": 0,
+      "name": "前端编程",
+      "displaySequence": 1,
+      "isDefault": false
+    },
+    {
+      "id": 26,
+      "parentCategoryId": 0,
+      "name": "后端编程",
+      "displaySequence": 2,
+      "isDefault": false
+    },
+    {
+      "id": 29,
+      "parentCategoryId": 0,
+      "name": "产品策划",
+      "displaySequence": 3,
+      "isDefault": false
+    },
+    {
+      "id": 2,
+      "parentCategoryId": 1,
+      "name": "JavaScript",
+      "displaySequence": 1,
+      "isDefault": false
+    },
+    {
+      "id": 3,
+      "parentCategoryId": 1,
+      "name": "jQuery",
+      "displaySequence": 2,
+      "isDefault": false
+    },
+    {
+      "id": 27,
+      "parentCategoryId": 1,
+      "name": "LayUI",
+      "displaySequence": 3,
+      "isDefault": false
+    },
+    {
+      "id": 23,
+      "parentCategoryId": 5,
+      "name": "活动详情",
+      "displaySequence": 1,
+      "isDefault": false
+    },
+    {
+      "id": 24,
+      "parentCategoryId": 5,
+      "name": "活动回顾",
+      "displaySequence": 2,
+      "isDefault": false
+    },
+    {
+      "id": 39,
+      "parentCategoryId": 26,
+      "name": ".Net Core",
+      "displaySequence": 1,
+      "isDefault": false
+    },
+    {
+      "id": 48,
+      "parentCategoryId": 26,
+      "name": "EF",
+      "displaySequence": 2,
+      "isDefault": false
+    },
+    {
+      "id": 49,
+      "parentCategoryId": 26,
+      "name": "Web Api",
+      "displaySequence": 3,
+      "isDefault": false
+    },
+    {
+      "id": 30,
+      "parentCategoryId": 29,
+      "name": "Axure",
+      "displaySequence": 1,
+      "isDefault": false
+    },
+    {
+      "id": 50,
+      "parentCategoryId": 29,
+      "name": "墨刀",
+      "displaySequence": 2,
+      "isDefault": false
+    }
+  ]
+}

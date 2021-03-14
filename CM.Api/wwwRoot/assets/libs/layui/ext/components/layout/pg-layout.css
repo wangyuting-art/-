@@ -1,0 +1,67 @@
+﻿/* 
+  * 版 本 Lanpai-Dev V3.0.0 揽派敏捷开发框架
+  * Copyright (c) 2019-2025 www.lanpai51.com
+  * 创建人：yisan-sky@qq.com
+  * 日 期：2019.08.26
+  * 描 述：pgLayout 页面布局样式
+ */
+
+html,body {
+    padding:0;
+    width: 100%;
+    height: 100%
+}
+.pg-layout {
+    position:relative;
+    height:100%;
+    width:100%;
+    padding:5px;
+}
+.pg-layout.pg-layout-left-center {
+    padding-left:203px;
+}
+
+.pg-layout-left {
+    position:absolute;
+    top:0;
+    left:0;
+    width:203px;
+    height:100%;
+    padding:10px 0px 10px 10px;
+}
+
+.pg-layout-center {
+    position:relative;
+    width:100%;
+    height:100%;
+    padding:5px;
+}
+
+
+.pg-layout-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    /*border:1px solid #f1f1f1;*/
+    border: 1px solid #E6E6E6;
+    border-radius: 3px;
+    -webkit-transition: opacity 0.25s ease-out;
+    -moz-transition: opacity 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    overflow:hidden;
+}
+
+.pg-layout-move {
+    position:absolute;
+    top:0;
+    z-index:1;
+}
+.pg-layout-move-right {
+    right:-8px;
+    width:8px;
+    height:100%;
+    cursor:col-resize;
+}

@@ -1,0 +1,120 @@
+{
+    "code": "200",
+    "msg": "ok",
+    "count": 4,
+    "data": [
+        {
+          "id": 1,
+          "name": "管理后台",
+          "url": "welcome.html",
+          "icon": "",
+          "parentId": 0,
+          "orderNo": 1
+        },
+        {
+          "id": 11,
+          "name": "系统设置",
+          "url": "welcome.html",
+          "icon": "&#xe6ae;",
+          "parentId": 1,
+          "orderNo": 1
+        },
+        {
+          "id": 110,
+          "name": "菜单设置",
+          "url": "/pc/base/menuMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 11,
+          "orderNo": 1
+        },
+        {
+          "id": 111,
+          "name": "功能接口",
+          "url": "/pc/base/apiMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 11,
+          "orderNo": 1
+        },
+        {
+          "id": 21,
+          "name": "用户管理",
+          "url": "welcome.html",
+          "icon": "&#xe726;",
+          "parentId": 1,
+          "orderNo": 1
+        },
+        {
+          "id": 210,
+          "name": "系统角色",
+          "url": "/pc/user/roleMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 21,
+          "orderNo": 1
+        },
+        {
+          "id": 211,
+          "name": "角色菜单",
+          "url": "/pc/user/roleMenuMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 21,
+          "orderNo": 1
+        }
+        ,
+        {
+          "id": 212,
+          "name": "账号管理",
+          "url": "/pc/user/accountMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 21,
+          "orderNo": 1
+        },
+        {
+          "id": 213,
+          "name": "会员管理",
+          "url": "/pc/user/memberMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 21,
+          "orderNo": 1
+        },
+        {
+          "id": 214,
+          "name": "用户日志",
+          "url": "/pc/user/userLog.html",
+          "icon": "&#xe6a7;",
+          "parentId": 21,
+          "orderNo": 1
+        },
+        {
+          "id": 31,
+          "name": "内容管理",
+          "url": "welcome.html",
+          "icon": "&#xe74e;",
+          "parentId": 1,
+          "orderNo": 1
+        },
+        {
+          "id": 310,
+          "name": "栏目档案",
+          "url": "/pc/content/columnMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 31,
+          "orderNo": 1
+        },
+        {
+            "id": 311,
+            "name": "栏目授权",
+            "url": "/pc/content/roleColumnMgr.html",
+            "icon": "&#xe6a7;",
+            "parentId": 31,
+            "orderNo": 1
+        },
+        {
+          "id": 312,
+          "name": "文章管理",
+          "url": "/pc/content/articleMgr.html",
+          "icon": "&#xe6a7;",
+          "parentId": 31,
+          "orderNo": 1
+        }
+      ]
+}

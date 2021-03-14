@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>角色管理</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/libs/layui/css/layui.css">
+    <!--<link rel="stylesheet" href="../assets/css/page.css">-->
+    <script src="/assets/libs/layui/layui.js"></script>
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-size: 12px;
+            width: 100%;
+            height: 100%;
+            background: #f1f1f1;
+        }
+        .body-box {
+            position:absolute;
+            top:0;
+            bottom:0;
+            background:#fff;
+            /*padding:0 15px;*/
+            padding:15px;
+            
+        }
+        .layui-table td, .layui-table th {
+            font-size: 12px;
+            padding: 4px 15px;
+            min-height: 28px;
+            line-height: 28px;
+            box-sizing: border-box;
+        }
+
+        .layui-card {
+            min-width: 400px;
+            /*min-height: 100%;*/
+        }
+
+        .layui-card-body {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .layui-table-box {
+            padding-top: 5px;
+        }
+
+        .layui-table-tool {
+            border: none;
+            background-color: #fff;
+            padding: 10px 0;
+            min-height: 0px;
+        }
+
+        .layui-table-view {
+            border: none;
+            margin: 0;
+        }
+            .layui-table-view .layui-table td, .layui-table-view .layui-table th {
+                /*border-left: 1px solid #e6e6e6;*/
+            }
+
+        .layui-btn-icon {
+            margin: 10px;
+        }
+
+            .layui-btn-icon:hover {
+                color: #009688;
+            }
+
+        .layui-btn-icon-pointer {
+            cursor: pointer;
+        }
+
+        .layui-laypage {
+            margin: 0;
+        }
+
+
+        .layui-table-body::-webkit-scrollbar { /*滚动条整体样式*/
+            width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+            height: 5px;
+        }
+
+        .layui-table-body::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+            border-radius: 5px;
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .layui-table-body::-webkit-scrollbar-track { /*滚动条里面轨道*/
+            -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 0;
+            background: rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+  <!--<div class="body-box">-->
+    <div class="layui-card">
+      <div class="layui-card-body ">
+          <table class="layui-table" id="tab" lay-filter="tab"></table>
+      </div>
+    </div>
+  <!--</div>-->
+
+  <script type="text/html" id="mytoolbar">
+      <div class="layui-inline">
+          <input class="layui-input" style="height:30px" name="GroupName" id="demoReload"
+                 placeholder="关键字" autocomplete="off">
+      </div>
+      <div class="layui-inline ">
+          <button class="layui-btn layui-btn-sm" data-type="reload" lay-event="search">
+              <i class="layui-icon layui-icon-search"></i>搜索
+          </button>
+      </div>
+      <div class="layui-inline ">
+          <a title="高级搜索" class="layui-btn-icon" lay-event="adv">
+              <i class="layui-icon layui-icon-set-fill"></i>
+          </a>
+      </div>
+      <div class="layui-inline" style="float:right">
+          <div class="layui-inline">
+              <a title="刷新" class="layui-btn-icon" onclick="location.reload()">
+                  <i class="layui-icon ">&#xe9aa;</i>
+              </a>
+          </div>
+          <div class="layui-btn-group">
+
+              <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="delAll">
+                  <i class="layui-icon layui-icon-delete"></i>批删
+              </button>
+              <button class="layui-btn layui-btn-primary layui-btn-sm" lay-event="add">
+                  <i class="layui-icon  layui-icon-add-1"></i>添加
+              </button>
+          </div>
+      </div>
+
+  </script>
+  <script type="text/html" id="rowBar">
+      <a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
+          <i class="layui-icon">&#xe601;</i>
+      </a>
+      <a title="编辑" onclick="xadmin.open('编辑','member-edit.html',600,400)" href="javascript:;">
+          <i class="layui-icon">&#xe642;</i>
+      </a>
+      <a onclick="xadmin.open('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">
+          <i class="layui-icon">&#xe631;</i>
+      </a>
+      <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+          <i class="layui-icon">&#xe640;</i>
+      </a>
+
+  </script>
+
+
+<script>
+    layui.use(['element', 'table', 'layer'], function () {
+        var $ = layui.jquery;
+        var element = layui.element;
+        var table = layui.table;
+        var layer = layui.layer;
+
+        $.extend(table, {
+            showAll: function () {
+                var index = layer.load(2);
+                $.ajax({
+                    type: "GET",
+                    //url: "/api/Role",
+                    url: "json/role.json",
+                    data: {
+                        token: "itg"
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        table.show(data);
+                        layer.close(index);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        layer.close(index);
+                    }
+
+                });
+
+            },
+            show: function (mydata) {
+                table.render({
+                    elem: '#tab',
+                    toolbar: '#mytoolbar',
+                    id: 'testReload',
+                    //skin: 'line',
+                    data: mydata.data,
+                    cols: [
+                        [{
+                            type: 'checkbox'
+                        }, {
+                            field: 'id',
+                            title: 'ID',
+                            width: 160,
+                            //sort: true
+                        }, {
+                            field: 'name',
+                            title: '角色名称',
+                            //sort: true
+                        }, {
+                            title: '操作',
+                            fixed: 'right',
+                            width: 178,
+                            align: 'center',
+                            toolbar: '#rowBar'
+                        }]
+                    ],
+                    page: {
+                        count: 10,
+                        limit: 10,
+                        limits: [10, 20, 30, 50],
+                        layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+                        jump: function (obj) {
+                            console.log(obj)
+                        }
+                    }
+                });
+
+            },
+            add: function (obj) {
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,
+                    title: '添加角色',
+                    area: ['720px', '500px'],
+                    maxmin: true,
+                    content: ['roleAdd.html', 'no']
+                });
+            },
+            adv: function (obj) {
+                alert('高级搜索');
+            },
+            delAll: function (obj) {
+                alert('delAll');
+            },
+            search: function (obj) {
+                //alert('reload');
+                var myurl = "/api/Role";
+                var key = $("#demoReload").val();
+                if (key != "") {
+                    myurl = myurl + "/" + key;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: myurl,
+                    data: {
+                        token: "itg"
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        table.show(data);
+                    }
+                });
+
+            },
+            rowDel: function (data) {
+                console.log(data);
+                layer.confirm('您确定要删除?', {
+                    icon: 3,
+                    title: '提示'
+                }, function (index) {
+                    //do something
+                    $.ajax({
+                        url: "/api/Role/" + data.id,
+                        type: "DELETE",
+                        success: function (result) {
+                            table.showAll();
+                        }
+                    });
+                    layer.close(index);
+                });
+            },
+            rowEdit: function (data) {
+                //alert('rowEdit');
+                // console.log(data);
+                var tb = "edit";
+                var fkey = tb + '_role_' + data.id;
+                layui.data(tb, {
+                    key: fkey,
+                    value: data
+                });
+                layer.open({
+                    type: 2, //此处以iframe举例   
+                    title: '编辑角色',
+                    area: ['720px', '500px'],
+                    shade: 0,
+                    maxmin: true,
+                    content: ['roleAdd.html?edit=' + fkey, 'no']
+                });
+
+            }
+        });
+
+        //监听工具栏事件
+        table.on('toolbar(tab)', function (obj) {
+            table[obj.event] && table[obj.event](obj.data);
+            // alert(obj.event);
+            // console.log(obj);
+
+        });
+        //监听行工具栏事件
+        table.on('tool(tab)', function (obj) {
+            table[obj.event] && table[obj.event](obj.data);
+            // alert(obj.event);
+            // console.log(obj);
+        });
+
+        table.showAll();
+
+
+    });
+
+</script>
+</body>
+
+</html>

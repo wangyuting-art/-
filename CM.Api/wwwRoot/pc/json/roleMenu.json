@@ -1,0 +1,56 @@
+{
+    "code": "200",
+    "msg": "ok",
+    "count": 4,
+    "data": [
+        {
+          "id": 1,
+          "name": "管理后台",
+          "url": "welcome.html",
+          "icon": "",
+          "parentId": 0,
+          "orderNo": 1,
+          "children":[]
+        },
+        {
+          "id": 11,
+          "name": "系统设置",
+          "url": "welcome.html",
+          "icon": "&#xe6ae;",
+          "parentId": 1,
+          "orderNo": 1,
+          "children":[
+            {"id":110,"name": "菜单设置","selected":0},
+            {"id":111,"name": "功能接口","selected":0}
+          ]
+        },
+        {
+          "id": 21,
+          "name": "用户管理",
+          "url": "welcome.html",
+          "icon": "&#xe726;",
+          "parentId": 1,
+          "orderNo": 1,
+          "children":[
+            {"id":210,"name": "系统角色","selected":0},
+            {"id":211,"name": "角色菜单","selected":1},
+            {"id":212,"name": "账号管理","selected":1},
+            {"id":213,"name": "会员管理","selected":0},
+            {"id":214,"name": "用户日志","selected":0}
+          ]
+        },
+        {
+          "id": 31,
+          "name": "内容管理",
+          "url": "welcome.html",
+          "icon": "&#xe74e;",
+          "parentId": 1,
+          "orderNo": 1,          
+          "children":[
+            {"id":310,"name": "栏目档案","selected":0},
+            {"id":311,"name": "栏目授权","selected":0},
+            {"id":312,"name": "文章管理","selected":0}
+          ]
+        }
+      ]
+}
